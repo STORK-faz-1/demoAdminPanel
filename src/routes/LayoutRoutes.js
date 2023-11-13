@@ -20,6 +20,12 @@ import Digitalprolist from '../components/products/digital/digital-pro-list'
 import Digitalsubcategory from '../components/products/digital/digital-sub-category'
 import Addproduct from '../components/products/physical/add-product'
 import Category from '../components/products/physical/category'
+import Man from '../components/products/physical/man'
+import MomAndChild from '../components/products/physical/momAndChild'
+import Home from '../components/products/physical/home'
+import ShoeAndBag from '../components/products/physical/shoeAndBag'
+import Electronic from '../components/products/physical/electronic'
+import SportOutdoor from '../components/products/physical/sportOutdoor.js'
 import Productdetail from '../components/products/physical/product-detail'
 import Productlist from '../components/products/physical/product-list'
 import Subcategory from '../components/products/physical/sub-category'
@@ -50,6 +56,32 @@ const LayoutRoutes = () => {
 						<Route
 							path={`${process.env.PUBLIC_URL}/products/physical/category`}
 							element={<Category />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/products/physical/man`}
+							element={<Man />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/products/physical/momAndChild`}
+							element={<MomAndChild />}
+						/>
+						
+						<Route
+							path={`${process.env.PUBLIC_URL}/products/physical/home`}
+							element={<Home />}
+						/>
+				
+						<Route
+							path={`${process.env.PUBLIC_URL}/products/physical/shoeAndBag`}
+							element={<ShoeAndBag />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/products/physical/electronic`}
+							element={<Electronic />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/products/physical/sportOutdoor`}
+							element={<SportOutdoor />}
 						/>
 						<Route
 							path={`${process.env.PUBLIC_URL}/products/physical/sub-category`}

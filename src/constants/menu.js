@@ -24,72 +24,82 @@ export const MENUITEMS = [
     },
     {
         title: 'Ürünler', icon: Box, type: 'sub', active: false, children: [
-            {
-                title: 'Kadın', type: 'sub', active: false, children: [
-                    { path: '/products/physical/category', title: 'Tüm Ürünler', type: 'link' },
-                    // { path: '/products/physical/sub-category', title: 'Sub Category', type: 'link' },
-                    // { path: '/products/physical/product-list', title: 'Product List', type: 'link' },
-                    // { path: '/products/physical/product-detail', title: 'Product Detail', type: 'link' },
-                    //  { path: '/products/physical/add-product', title: 'Ürün Ekle', type: 'link' },
+            // {
+            //     title: 'Kadın', type: 'sub', active: false, children: [
+            //         { path: '/products/physical/category', title: 'Tüm Ürünler', type: 'link' },
+            //          { path: '/products/physical/sub-category', title: 'Sub Category', type: 'link' },
+            //          { path: '/products/physical/product-list', title: 'Product List', type: 'link' },
+            //          { path: '/products/physical/product-detail', title: 'Product Detail', type: 'link' },
+            //          { path: '/products/physical/add-product', title: 'Ürün Ekle', type: 'link' },
                 
-                ]
-            },
-            {
-                title: 'Erkek', type: 'sub', active: false, children: [
-                    { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-                    // { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-                    // { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-                    // { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
-                ]
-            },
-            {
-                title: 'Anne & Çocuk', type: 'sub', active: false, children: [
-                    { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-                    // { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-                    // { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-                    // { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
-                ]
-            },
-            {
-                title: 'Ev & Mobilya', type: 'sub', active: false, children: [
-                    { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-                    // { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-                    // { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-                    // { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
-                ]
-            },
-            {
-                title: 'Süpermarket', type: 'sub', active: false, children: [
-                    { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-                    // { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-                    // { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-                    // { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
-                ]
-            },
-            {
-                title: 'Ayakkabı & Çanta', type: 'sub', active: false, children: [
-                    { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-                    // { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-                    // { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-                    // { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
-                ]
-            },
-            {
-                title: 'Elektronik', type: 'sub', active: false, children: [
-                    { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-                    // { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-                    // { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-                    // { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
-                ]
-            },
-            {
-                title: 'Spor & Outdoor', type: 'sub', active: false, children: [
-                    { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-                    // { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-                    // { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-                    // { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
-                ]
-            },
+            //     ]
+            // },
+            { path: '/products/physical/category', title: 'Kadın', type: 'link' },
+            { path: '/products/physical/man', title: 'Erkek', type: 'link' },
+            { path: '/products/physical/momAndChild', title: 'Anne & Çocuk', type: 'link' },
+            { path: '/products/physical/home', title: 'Ev & Yaşam', type: 'link' },
+            { path: '/products/physical/shoeAndBag', title: 'Ayakkabı & Çanta', type: 'link' },
+            { path: '/products/physical/electronic', title: 'Elektronik', type: 'link' },
+            { path: '/products/physical/sportOutdoor', title: 'Spor & Outdoor', type: 'link' },
+
+            // {
+            //     title: 'Erkek', type: 'sub', active: false, children: [
+            //     { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
+            //         { path: '/products/physical/category', title: 'Tüm Ürünler', type: 'link' },
+            //         { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
+            //          { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
+            //          { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
+            //     ]
+            // },
+            // {
+            //     title: 'Anne & Çocuk', type: 'sub', active: false, children: [
+            //          { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
+            //         { path: '/products/physical/category', title: 'Tüm Ürünler', type: 'link' },
+            //          { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
+            //          { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
+            //          { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
+            //     ]
+            // },
+            // {
+            //     title: 'Ev & Mobilya', type: 'sub', active: false, children: [
+            //         { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
+            //          { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
+            //          { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
+            //          { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
+            //     ]
+            // },
+            // {
+            //     title: 'Süpermarket', type: 'sub', active: false, children: [
+            //         { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
+            //          { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
+            //          { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
+            //          { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
+            //     ]
+            // },
+            // {
+            //     title: 'Ayakkabı & Çanta', type: 'sub', active: false, children: [
+            //         { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
+            //          { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
+            //          { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
+            //          { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
+            //     ]
+            // },
+            // {
+            //     title: 'Elektronik', type: 'sub', active: false, children: [
+            //         { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
+            //          { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
+            //          { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
+            //          { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
+            //     ]
+            // },
+            // {
+            //     title: 'Spor & Outdoor', type: 'sub', active: false, children: [
+            //         { path: '/products/digital/digital-category', title: 'Category', type: 'link' },
+            //          { path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
+            //          { path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
+            //          { path: '/products/digital/digital-add-product', title: 'Ürün Ekle', type: 'link' },
+            //     ]
+            // },
        
         ]
     },

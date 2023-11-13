@@ -216,7 +216,7 @@ const Category = () => {
 			  { text: "", link: "link2" },
 			  { text: "Bot", link: "link2" },
 			  { text: "Boks Bandajı", link: "link2" },
-			  { text: "Suluk", link: "link2" },
+			  { text: "Suluk", link: "link" },
 			  { text: "", link: "link2" },
 			  { text: "", link: "link2" },
 			  { text: "", link: "link2" },

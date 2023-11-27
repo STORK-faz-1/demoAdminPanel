@@ -19,6 +19,8 @@ import Digitalcategory from '../components/products/digital/digital-category'
 import Digitalprolist from '../components/products/digital/digital-pro-list'
 import Digitalsubcategory from '../components/products/digital/digital-sub-category'
 import Addproduct from '../components/products/physical/add-product'
+import AddProductAmazon from '../components/products/physical/add-product-amazon'
+import AddMoreProducts from '../components/products/physical/add-more-products.js'
 import Category from '../components/products/physical/category'
 import Man from '../components/products/physical/man'
 import MomAndChild from '../components/products/physical/momAndChild'
@@ -99,7 +101,14 @@ const LayoutRoutes = () => {
 							path={`${process.env.PUBLIC_URL}/products/physical/add-product`}
 							element={<Addproduct />}
 						/>
-
+	                    <Route
+							path={`${process.env.PUBLIC_URL}/products/physical/add-product-amazon`}
+							element={<AddProductAmazon />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/products/physical/add-more-products`}
+							element={<AddMoreProducts />}
+						/>
 						<Route
 							path={`${process.env.PUBLIC_URL}/products/digital/digital-category`}
 							element={<Digitalcategory />}

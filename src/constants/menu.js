@@ -107,6 +107,12 @@ export const MENUITEMS = [
         title: 'Ürün Ekle', path: '/products/physical/add-product', icon: PlusCircle, type: 'link', active: false
     },
     {
+        title: 'Amazon Ürün Ekle', path: '/products/physical/add-product-amazon', icon: PlusCircle, type: 'link', active: false
+    },
+    {
+        title: 'Çoklu Ürün Ekle', path: '/products/physical/add-more-products', icon: PlusCircle, type: 'link', active: false
+    },
+    {
         title: 'Satışlar', icon: DollarSign, type: 'sub', active: false, children: [
             { path: '/sales/orders', title: 'Siparişler', type: 'link' },
             { path: '/sales/transactions', title: 'Sipariş Yönetimi', type: 'link' },

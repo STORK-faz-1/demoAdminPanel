@@ -4380,6 +4380,38 @@ $i: 1;
 .table-container {
   overflow-x: auto;
 }
+
+/* Add this to your CSS file */
+.email-alert-section-upload {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.email-input-container-upload {
+  flex: 1;
+  margin-right: 10px; /* Add right margin for spacing */
+}
+
+.checkbox-container-upload {
+  flex-shrink: 0; /* Prevent the checkbox container from shrinking */
+}
+
+@media (max-width: 767px) {
+  .email-input-container-upload {
+    margin-right: 0; /* Remove the right margin on smaller screens */
+  }
+
+  .email-input-container-upload, .checkbox-container-upload {
+    flex-basis: 100%;
+    margin-bottom: 0.5rem; /* Adjust spacing as needed */
+  }
+}
+
+
 /*=====================
   Responsive CSS End
 ==========================*/

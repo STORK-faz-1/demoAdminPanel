@@ -7,7 +7,7 @@ import { Card, CardBody, CardHeader, Col, Container, Row, Form, Input, FormGroup
 const Taxes = () => {
 	return (
 		<Fragment>
-			<Breadcrumb title="Maliyet" parent="Maliyet" />
+			<Breadcrumb title="Maliyet Bilgileri" parent="Maliyet" />
 			<Container fluid={true}>
 			<Col lg="4">
 			<Row>
@@ -38,9 +38,9 @@ const Taxes = () => {
 				<Row>
 					<Col sm="12">
 						<Card>
-							<CardHeader>
+							{/* <CardHeader>
 								<h5>Maliyet Bilgileri</h5>
-							</CardHeader>
+							</CardHeader> */}
 							<CardBody>
 							<Form >
 							<FormGroup>

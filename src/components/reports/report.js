@@ -19,7 +19,7 @@ import { Card, CardBody, CardHeader, Col, Container, Row, Input, FormGroup} from
 const Reports = () => {
 	return (
 		<div>
-			<Breadcrumb title="Raporlar" parent="Raporlar" />
+			<Breadcrumb title="Tüm Raporlar" parent="Raporlar" />
 			<Container fluid={true}>
 			<Col lg="4">
 			<Row>

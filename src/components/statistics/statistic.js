@@ -131,7 +131,7 @@ const Campaigns = () => {
   
 	return (
 		<div>
-			<Breadcrumb title="İstatistik" parent="İstatistik" />
+			<Breadcrumb title="Tüm İstatistikler" parent="İstatistikler" />
 			 <Container fluid={true}>
 			 <Col lg="4">
 			<Row>

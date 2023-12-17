@@ -8,73 +8,39 @@ import "../../assets/scss/slick-theme.scss";
 import { Card, CardBody, Col, Container, Row } from "reactstrap";
 
 const Login = () => {
-	var settings = {
-		dots: true,
-		infinite: true,
-		speed: 500,
-		arrows: false,
-	};
-	return (
-		<Fragment>
-			<div className="page-wrapper">
-				<div className="authentication-box">
-					<Container>
-						<Row>
-							<Col className="col-md-5 p-0 card-left">
-								<Card className="bg-primary">
-									<div className="svg-icon">
-										<img alt="" src={stats} className="Img-fluid" />
-									</div>
-									<Slider className="single-item" {...settings}>
-										<div>
-											<div>
-												<h3>Admin Paneline Hoş Geldin!</h3>
-												<p>
-													Admin Paneline Hoş Geldin!
-												</p>
-											</div>
-										</div>
-										<div>
-											<div>
-												<h3>Admin Paneline Hoş Geldin!</h3>
-												<p>
-												Admin Paneline Hoş Geldin!
-												</p>
-											</div>
-										</div>
-										<div>
-											<div>
-												<h3>Admin Paneline Hoş Geldin!</h3>
-												<p>
-												 Admin Paneline Hoş Geldin!
-												</p>
-											</div>
-										</div>
-									</Slider>
-								</Card>
-							</Col>
-							<Col className="col-md-7 p-0 card-right">
-								<Card className="tab2-card">
-									<CardBody>
-										<LoginTabset />
-									</CardBody>
-								</Card>
-							</Col>
-						</Row>
-						<a
-							href="https://multikart-react.vercel.app/"
-							target="_blank"
-							rel="noreferrer"
-							className="btn btn-primary back-btn"
-						>
-							<ArrowLeft />
-							Geri
-						</a>
-					</Container>
-				</div>
-			</div>
-		</Fragment>
-	);
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        arrows: false,
+    };
+    return (
+        <Fragment>
+            <div className="page-wrapper">
+                <div className="authentication-box">
+                    <Container>
+                        <Row className="justify-content-center">
+                            <Col md={8} >
+                                <Card style={{ boxShadow: "0 2px 15px 0 rgba(5, 121, 188, 0.91)" }} className="tab2-card">
+                                    <CardBody>
+                                        <LoginTabset />
+                                    </CardBody>
+                                </Card>
+                                <a href="https://multikart-react.vercel.app/"
+                                   target="_blank"
+                                   rel="noreferrer"
+                                   className="btn btn-primary back-btn mt-3"
+                                >
+                                    <ArrowLeft />
+                                    Geri
+                                </a>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+            </div>
+        </Fragment>
+    );
 };
 
 export default Login;

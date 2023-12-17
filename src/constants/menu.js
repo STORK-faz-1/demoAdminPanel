@@ -15,12 +15,12 @@ import {
     Users,
     Chrome,
     Paperclip,
-    BarChart,Settings,Archive, LogIn, Activity, Book, PlusCircle
+    BarChart,Settings,Archive, LogIn, Activity, Book, PlusCircle, UploadCloud, FilePlus
 } from 'react-feather';
 
 export const MENUITEMS = [
     {
-        path: '/dashboard', title: 'Kontrol Paneli', icon: Home, type: 'link', badgeType: 'primary', active: false
+        path: '/dashboard', title: 'Ana Sayfa', icon: Home, type: 'link', badgeType: 'primary', active: false
     },
     {
         title: 'Ürünler', icon: Box, type: 'sub', active: false, children: [
@@ -104,13 +104,14 @@ export const MENUITEMS = [
         ]
     },
     {
-        title: 'Ürün Ekle', path: '/products/physical/add-product', icon: PlusCircle, type: 'link', active: false
-    },
-    {
         title: 'Amazon Ürün Ekle', path: '/products/physical/add-product-amazon', icon: PlusCircle, type: 'link', active: false
     },
     {
-        title: 'Çoklu Ürün Ekle', path: '/products/physical/add-more-products', icon: PlusCircle, type: 'link', active: false
+        title: 'Toplu Ürün Ekle', path: '/products/physical/add-product', icon: FilePlus, type: 'link', active: false
+    },
+ 
+    {
+        title: 'Ürünleri Yükle', path: '/products/physical/add-more-products', icon: UploadCloud, type: 'link', active: false
     },
     {
         title: 'Satışlar', icon: DollarSign, type: 'sub', active: false, children: [
@@ -147,7 +148,7 @@ export const MENUITEMS = [
         ]
     },
     {
-        title: 'Influencer Listesi', path: '/influencers/influencers', icon: Heart, type: 'link', active: false
+        title: 'Influencers', path: '/influencers/influencers', icon: Heart, type: 'link', active: false
     },
     // {
     //     title: 'Satıcılar', icon: Users, type: 'sub', active: false, children: [
@@ -163,7 +164,7 @@ export const MENUITEMS = [
     //     ]
     // },
     {
-        title: 'Döviz Kurları', path: '/localization/currency-rates', icon: Activity, type: 'link', active: false
+        title: 'Döviz', path: '/localization/currency-rates', icon: Activity, type: 'link', active: false
     },
     {
         title: 'Maliyet', path: '/localization/taxes', icon: Book, type: 'link', active: false
@@ -180,7 +181,7 @@ export const MENUITEMS = [
     //     title: 'Entegrasyon',path:'/dashboard', icon: Layers, type: 'link', active: false
     // },
     {
-        title: 'İstatistik',path:'/statistics/statistic', icon: PieChart, type: 'link', active: false
+        title: 'İstatistikler',path:'/statistics/statistic', icon: PieChart, type: 'link', active: false
     },
     {
         title: 'Raporlar',path:'/reports/report', icon: BarChart, type: 'link', active: false

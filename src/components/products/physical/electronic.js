@@ -4,6 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import { useEffect } from 'react';
 import Datatable from "../../common/datatable";
+import Select from 'react-select';
+
 import {
 	Button,
 	Card,
@@ -28,6 +30,19 @@ import {
 } from "reactstrap";
 
 const Category = () => {
+	const storeOptions = [
+		{ value: 'England', label: 'İngiltere' },
+		{ value: 'Canada', label: 'Kanada' },
+		{ value: 'Mexican', label: 'Meksika' },
+		
+	  ];
+	  const Checkbox = ({ children, ...props }) => (
+		<label style={{ marginRight: '1em' }}>
+		  <input type="checkbox" {...props} />
+		  {children}
+		</label>
+	  );
+	 
 	const cellContents = [
 		[
 		  { text: "Süpürge", link: "link1" },
@@ -289,22 +304,15 @@ const Category = () => {
 					<FormGroup row>
 	
             <Col xl="6 xl-100">
-              <Input
-                id="exampleSelect"
-                name="select"
-                type="select"
-            size={"sm"}
-              >
-            <option>
-                İngiltere
-                </option>
-                <option>
-                  Kanada
-                </option>
-                <option>
-                  Meksika
-                </option>
-              </Input>
+			<Select
+        className="basic-single"
+        classNamePrefix="select"
+        defaultValue={storeOptions[0]}
+		isClearable={true} // Her zaman clearable
+        isSearchable={true} // Her zaman searchable
+        name="store"
+        options={storeOptions}
+      />
             </Col>
       
           </FormGroup>

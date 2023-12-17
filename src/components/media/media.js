@@ -8,7 +8,7 @@ import { Card, CardBody, CardHeader, Container } from "reactstrap";
 const Media = () => {
 	return (
 		<Fragment>
-			<Breadcrumb title="Medya" parent="Medya" />
+			<Breadcrumb title="Medya Yükle" parent="Medya" />
 			<Container fluid={true}>
 				<Card>
 					{/* <CardHeader>

@@ -23,7 +23,12 @@ import {
 	Label,
 	Input,
 	FormText,
-	CustomInput
+	CustomInput,
+	Table,
+	CardGroup,
+	CardImg,
+	CardSubtitle,
+	
 } from "reactstrap";
 import one from "../../../assets/images/pro3/1.jpg";
 import user from "../../../assets/images/user.png";
@@ -95,7 +100,7 @@ const Add_product = () => {
 
 	return (
 		<Fragment>
-			<Breadcrumb title="Add Products via Upload" parent="Physical" />
+			<Breadcrumb title="Toplu Ürün Yükle" parent="Ürünleri Yükle" />
 
 			<Container fluid={true}>
 				<Row>
@@ -142,16 +147,74 @@ const Add_product = () => {
 									</Nav>
 									<TabContent activeTab={activeTab}>
 										<TabPane tabId="1">
-											<Row>
-												<Col sm="12">
-													<h4>
-														Tab 1 Contents
+										{/* <br></br>
+											<h4>
+											Başlamak için Bir Şablon Seçin
 													</h4>
-												</Col>
-											</Row>
+													<br></br>
+													<CardGroup>
+  <Card>
+  
+    <CardBody>
+      <CardTitle tag="h5">
+        Card title
+      </CardTitle>
+      <CardSubtitle
+        className="mb-2 text-muted"
+        tag="h6"
+      >
+        Card subtitle
+      </CardSubtitle>
+      <CardText>
+        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+      </CardText>
+      <Button>
+        Button
+      </Button>
+    </CardBody>
+  </Card>
+  <Card>
+    <CardBody>
+      <CardTitle tag="h5">
+        Card title
+      </CardTitle>
+      <CardSubtitle
+        className="mb-2 text-muted"
+        tag="h6"
+      >
+        Card subtitle
+      </CardSubtitle>
+      <CardText>
+        This card has supporting text below as a natural lead-in to additional content.
+      </CardText>
+      <Button>
+        Button
+      </Button>
+    </CardBody>
+  </Card>
+  <Card>
+    <CardBody>
+      <CardTitle tag="h5">
+        Card title
+      </CardTitle>
+      <CardSubtitle
+        className="mb-2 text-muted"
+        tag="h6"
+      >
+        Card subtitle
+      </CardSubtitle>
+      <CardText>
+        This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
+      </CardText>
+      <Button>
+        Button
+      </Button>
+    </CardBody>
+  </Card>
+</CardGroup> */}
 										</TabPane>
 										<TabPane tabId="2">
-											<Row>
+											{/* <Row>
 												<Col sm="6">
 													<Card body>
 														<CardTitle>
@@ -178,13 +241,211 @@ const Add_product = () => {
 														</Button>
 													</Card>
 												</Col>
-											</Row>
+											</Row> */}
+											<br></br>
+											<h4>
+														Elektronik Tablo İndirme Geçmişi
+													</h4>
+													<br></br>
+													<Form>
+													<Row>
+    <Col md={3}>
+      <FormGroup>
+	  <Label
+      for="exampleSelect"
+      sm={4}
+    >
+    </Label>
+   
+      <Input
+        id="exampleSelect"
+        name="select"
+        type="select"
+      >
+        <option>
+          Tüm Durumlar
+        </option>
+        <option>
+          2
+        </option>
+        <option>
+          3
+        </option>
+        <option>
+          4
+        </option>
+        <option>
+          5
+        </option>
+      </Input>
+    
+      </FormGroup>
+    </Col>
+    <Col md={3}>
+      <FormGroup>
+	  <Label
+      for="exampleSelect"
+      sm={4}
+    >
+      
+    </Label>
+
+      <Input
+        id="exampleSelect"
+        name="select"
+        type="select"
+      >
+        <option>
+         Tüm Zamanlar
+        </option>
+        <option>
+          2
+        </option>
+        <option>
+          3
+        </option>
+        <option>
+          4
+        </option>
+        <option>
+          5
+        </option>
+      </Input>
+
+      </FormGroup>
+    </Col>
+	<Col md={6}>
+	<FormGroup>
+	<Label
+      for="exampleSelect"
+      sm={4}
+    >
+    </Label>
+    <Input
+      type="search"
+      placeholder="🔎 Ara.."
+	 
+    />
+  </FormGroup>
+    </Col>
+  </Row>
+													</Form>
+											<Table
+  hover
+  responsive
+  size="lg"
+  striped
+  bordered
+>
+  <thead>
+    <tr>
+      <th>
+        Dosya Adı
+      </th>
+      <th>
+	  Elektronik Tablo Tipi
+      </th>
+      <th>
+       Oluşturulan Tarih
+      </th>
+      <th>
+        Mağazalar
+      </th>
+	  <th>
+        Ek Bilgiler
+      </th>
+	  <th>
+        Durum
+      </th>
+	  <th>
+        
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+        1
+      </th>
+      <td>
+        Mark
+      </td>
+      <td>
+        Otto
+      </td>
+      <td>
+        @mdo
+      </td>
+	  <td>
+        @mdo
+      </td>
+	  <td>
+        @mdo
+      </td>
+	  <td>
+        @mdo
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        2
+      </th>
+      <td>
+        Jacob
+      </td>
+      <td>
+        Thornton
+      </td>
+      <td>
+        @fat
+      </td>
+	  <td>
+        @mdo
+      </td>
+	  <td>
+        @mdo
+      </td>
+	  <td>
+        @mdo
+      </td>
+    </tr>
+	
+    <tr>
+      <th scope="row">
+        3
+      </th>
+      <td>
+        Larry
+      </td>
+      <td>
+        the Bird
+      </td>
+      <td>
+        @twitter
+      </td>
+	  <td>
+        @mdo
+      </td>
+	  <td>
+        @mdo
+      </td>
+	  <td>
+        @mdo
+      </td>
+    </tr>
+  </tbody>
+</Table>
 										</TabPane>
 										<TabPane tabId="3">
   <Row>
     <Col sm="12">
       <Card>
         <CardBody>
+		
+											<h4>
+														E-Tablonuzu Yükleyin
+													</h4>
+													<br></br>
           <div className="upload-container" style={{ textAlign: 'center', padding: '20px', border: '1px dashed #A9A9A9', borderRadius: '5px', cursor: 'pointer' }}>
             <Upload size={50} color="#A9A9A9" />
             <p>Drag and drop file or</p>
@@ -210,13 +471,13 @@ const Add_product = () => {
   </Row>
 </TabPane>
                                         <TabPane tabId="4">
-											<Row>
+											{/* <Row>
 												<Col sm="12">
 													<h4>
 														Tab 1 Contents
 													</h4>
 												</Col>
-											</Row>
+											</Row> */}
 										</TabPane>
 									</TabContent>
 								</div>

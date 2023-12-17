@@ -12,7 +12,7 @@ const Digital_add_pro = () => {
 	}
 	return (
 		<Fragment>
-			<Breadcrumb title="Ürün Ekle" parent="Digital" />
+			<Breadcrumb title="Amazon Ürün Ekle" parent="Amazon Ürün Ekle" />
 			<Container fluid={true}>
 				<Row className="product-adding">
 					<Col xl="6">

@@ -7,7 +7,7 @@ import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap";
 const Rates = () => {
 	return (
 		<Fragment>
-			<Breadcrumb title="Döviz Kurları" parent="Yerelleştirme" />
+			<Breadcrumb title="Döviz Kurları" parent="Döviz" />
 			<Container fluid={true}>
 				<Row>
 					<Col sm="12">

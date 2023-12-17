@@ -22,12 +22,9 @@ const LoginTabset = () => {
 					<TabList className="nav nav-tabs tab-coupon">
 						<Tab className="nav-link" onClick={(e) => clickActive(e)}>
 							<User />
-							Giriş Yap
+							Giriş
 						</Tab>
-						<Tab className="nav-link" onClick={(e) => clickActive(e)}>
-							<Unlock />
-							Üye Ol
-						</Tab>
+			
 					</TabList>
 
 					<TabPanel>
@@ -53,7 +50,7 @@ const LoginTabset = () => {
 							</FormGroup>
 							<div className="form-terms">
 								<div className="custom-control custom-checkbox me-sm-2">
-									<Label className="d-block">
+									{/* <Label className="d-block">
 										<Input
 											className="checkbox_animated"
 											id="chk-ani2"
@@ -66,7 +63,7 @@ const LoginTabset = () => {
 											   Şifremi Unuttum
 											</a>
 										</span>
-									</Label>
+									</Label> */}
 								</div>
 							</div>
 							<div className="form-button">
@@ -78,7 +75,7 @@ const LoginTabset = () => {
 									Giriş Yap
 								</Button>
 							</div>
-							<div className="form-footer">
+							{/* <div className="form-footer">
 								<span>Veya Sosyal platformlarla giriş yapın</span>
 								<ul className="social">
 									<li>
@@ -102,89 +99,7 @@ const LoginTabset = () => {
 										</a>
 									</li>
 								</ul>
-							</div>
-						</Form>
-					</TabPanel>
-					<TabPanel>
-						<Form className="form-horizontal auth-form">
-							<FormGroup>
-								<Input
-									required=""
-									name="login[username]"
-									type="email"
-									className="form-control"
-									placeholder="Kullanıcı Adı"
-									id="exampleInputEmail12"
-								/>
-							</FormGroup>
-							<FormGroup>
-								<Input
-									required=""
-									name="login[password]"
-									type="password"
-									className="form-control"
-									placeholder="Şifre"
-								/>
-							</FormGroup>
-							<FormGroup>
-								<Input
-									required=""
-									name="login[password]"
-									type="password"
-									className="form-control"
-									placeholder="Şifreyi Onayla"
-								/>
-							</FormGroup>
-							<div className="form-terms">
-								<div className="custom-control custom-checkbox me-sm-2">
-									<Label className="d-block">
-										<Input
-											className="checkbox_animated"
-											id="chk-ani2"
-											type="checkbox"
-										/>
-									   <span>
-											<a href="/#">Kullanım Koşulları</a>
-										</span>
-										'nı Kabul Ediyorum.{" "}
-									
-									</Label>
-								</div>
-							</div>
-							<div className="form-button">
-								<Button
-									color="primary"
-									type="submit"
-									onClick={() => routeChange()}
-								>
-									Üye Ol
-								</Button>
-							</div>
-							<div className="form-footer">
-								<span>Veya Sosyal Platformlar ile Kaydolun</span>
-								<ul className="social">
-									<li>
-										<a href="/#">
-											<i className="icon-facebook"></i>
-										</a>
-									</li>
-									<li>
-										<a href="/#">
-											<i className="icon-twitter-alt"></i>
-										</a>
-									</li>
-									<li>
-										<a href="/#">
-											<i className="icon-instagram"></i>
-										</a>
-									</li>
-									<li>
-										<a href="/#">
-											<i className="icon-pinterest-alt"></i>
-										</a>
-									</li>
-								</ul>
-							</div>
+							</div> */}
 						</Form>
 					</TabPanel>
 				</Tabs>

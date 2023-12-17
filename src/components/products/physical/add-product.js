@@ -78,7 +78,7 @@ const Add_product = () => {
 	const handleValidSubmit = () => {};
 	return (
 		<Fragment>
-			<Breadcrumb title="Yeni Ürün Ekle" parent="Physical" />
+			<Breadcrumb title="Yeni Ürünler Ekle"  parent="Toplu Ürün Ekle" />
 
 			<Container fluid={true}>
 				<Row>

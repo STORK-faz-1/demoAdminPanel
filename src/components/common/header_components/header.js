@@ -104,12 +104,12 @@ const Header = () => {
 									<Maximize2 />
 								</a>
 							</li>
-							<li className="onhover-dropdown">
+							{/* <li className="onhover-dropdown">
 								<a className="txt-dark" href="#javaScript">
 									<h6>TR</h6>
 								</a>
 								<Language />
-							</li>
+							</li> */}
 
 							<li className="onhover-dropdown">
 								<Bell />

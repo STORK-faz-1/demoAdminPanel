@@ -3,7 +3,7 @@ import Breadcrumb from "./common/breadcrumb";
 import Datatable from "./common/datatable";
 import data from "../assets/data/orders";
 import { Repeat } from 'react-feather'; // React Feather kütüphanesinden Repeat ikonunu eklemek için
-
+import Select from 'react-select';
 import {
 	chartOptions,
 	areaChart,
@@ -92,8 +92,35 @@ ChartJS.register(
 	  Filler,
 	RadialLinearScale
   );
-
+ 
 const Dashboard = () => {
+	const timeOptions = [
+		{ value: 'allTimes', label: 'Tüm Zamanlar' },
+		{ value: 'today', label: 'Bugün' },
+		{ value: 'yesterday', label: 'Dün' },
+		{ value: 'three', label: 'Son 3 Gün' },
+		{ value: 'seven', label: 'Son 7 Gün' },
+		{ value: 'fourteen', label: 'Son 14 Gün' },
+		{ value: 'thirty', label: 'Son 30 Gün' },
+		{ value: 'ninety', label: 'Son 90 Gün' },
+		{ value: 'oneHundredEighty', label: 'Son 180 Gün' },
+		{ value: 'threeHundredSixtyFive', label: 'Son 365 Gün' }
+	  ];
+	  const storeOptions = [
+		{ value: 'England', label: 'İngiltere' },
+		{ value: 'Canada', label: 'Kanada' },
+		{ value: 'Mexican', label: 'Meksika' },
+		
+	  ];
+	  const Checkbox = ({ children, ...props }) => (
+		<label style={{ marginRight: '1em' }}>
+		  <input type="checkbox" {...props} />
+		  {children}
+		</label>
+	  );
+	 
+
+ 
 	const lineData = {
 		labels: ["100", "200", "300", "400", "500", "600", "700", "800"],
 		datasets: [
@@ -248,95 +275,76 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if (isKargoCikmamisCard) {
-      const cardElement = document.querySelector(".kargo-cikmamis-card");
-
-      // Kırmızı box shadow'ın 3 kere yanıp sönmesi
-      for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-          cardElement.style.boxShadow = "0 0 10px red";
-          setTimeout(() => {
-            cardElement.style.boxShadow = "none";
-          }, 1000);
-        }, i * 2000);
-      }
-
-      // 3. kez yanıp sönmeden sonra kırmızı box shadow sabit kalsın
-      setTimeout(() => {
-        cardElement.style.boxShadow = "0 0 10px red";
-      }, 6000);
-    }
+	const cardElement = document.querySelector(".kargo-cikmamis-card");
+  
+	if (cardElement && isKargoCikmamisCard) {
+	  let timeouts = [];
+  
+	  // Kırmızı box shadow'ın 3 kere yanıp sönmesi
+	  for (let i = 0; i < 3; i++) {
+		let timeoutId = setTimeout(() => {
+		  cardElement.style.boxShadow = "0 0 10px red";
+		  timeouts.push(setTimeout(() => {
+			cardElement.style.boxShadow = "none";
+		  }, 1000));
+		}, i * 2000);
+		timeouts.push(timeoutId);
+	  }
+  
+	  // 3. kez yanıp sönmeden sonra kırmızı box shadow sabit kalsın
+	  timeouts.push(setTimeout(() => {
+		cardElement.style.boxShadow = "0 0 10px red";
+	  }, 6000));
+  
+	  // Cleanup function to clear timeouts if the component unmounts
+	  return () => {
+		timeouts.forEach(clearTimeout);
+		if (cardElement) {
+		  cardElement.style.boxShadow = "none";
+		}
+	  };
+	} else if (cardElement) {
+	  // Eğer isKargoCikmamisCard değeri false ise kırmızı gölgeyi kaldır
+	  cardElement.style.boxShadow = "none";
+	}
   }, [isKargoCikmamisCard]);
+  
 	return (
 		
 		<Fragment>
 			
-			<Breadcrumb title="Kontrol Paneli" parent="Kontrol Paneli"  />
+			<Breadcrumb title="Kontrol Paneli" parent="Ana Sayfa"  />
 			
 			<Container fluid={true}>
-			<Col lg="4">
+			<Col lg="6">
 			<Row>
 					<FormGroup row>
 
             <Col xl="6 xl-100">
-              <Input
-                id="exampleSelect"
-                name="select"
-                type="select"
-            size={"sm"}
-              >
-            <option>
-                  Tüm Zamanlar
-                </option>
-                <option>
-                  Bugün
-                </option>
-                <option>
-                  Dün
-                </option>
-                <option>
-                  Son 3 Gün
-                </option>
-                <option>
-                  Son 7 Gün
-                </option>
-            <option>
-                  Son 14 Gün
-                </option>
-            <option>
-                  Son 30 Gün
-                </option>
-            <option>
-                  Son 90 Gün
-                </option>
-            <option>
-                  Son 180 Gün
-                </option>
-            <option>
-                  Son 365 Gün
-                </option>
-          
-              </Input>
-              
+			<Select
+        className="basic-single"
+        classNamePrefix="select"
+        defaultValue={timeOptions[0]}
+		isClearable={true} // Her zaman clearable
+        isSearchable={true} // Her zaman searchable
+        name="time"
+        options={timeOptions}
+      />
+
+
             </Col>
 	
             <Col xl="6 xl-100">
-              <Input
-                id="exampleSelect"
-                name="select"
-                type="select"
-            size={"sm"}
-              >
-            <option>
-                İngiltere
-                </option>
-                <option>
-                  Kanada
-                </option>
-                <option>
-                  Meksika
-                </option>
-              </Input>
+			<Select
+        className="basic-single"
+        classNamePrefix="select"
+        defaultValue={storeOptions[0]}
+		isClearable={true} // Her zaman clearable
+        isSearchable={true} // Her zaman searchable
+        name="store"
+        options={storeOptions}
+      />
+
             </Col>
       
           </FormGroup>
@@ -390,7 +398,7 @@ const Dashboard = () => {
 					</Col>
 					<Col xl="3 xl-50" md="6">
 						<Card className="o-hidden widget-cards">
-							<CardBody className="bg-primary">
+							<CardBody className="bg-info">
 								<Media className="static-top-widget row">
 									<div className="icons-widgets col-4">
 										<div className="align-self-center text-center">
@@ -496,45 +504,16 @@ const Dashboard = () => {
 					<FormGroup row>
 
             <Col sm={20}>
-              <Input
-                id="exampleSelect"
-                name="select"
-                type="select"
-            size={"sm"}
-              >
-            <option>
-                  Tüm Zamanlar
-                </option>
-                <option>
-                  Bugün
-                </option>
-                <option>
-                  Dün
-                </option>
-                <option>
-                  Son 3 Gün
-                </option>
-                <option>
-                  Son 7 Gün
-                </option>
-            <option>
-                  Son 14 Gün
-                </option>
-            <option>
-                  Son 30 Gün
-                </option>
-            <option>
-                  Son 90 Gün
-                </option>
-            <option>
-                  Son 180 Gün
-                </option>
-            <option>
-                  Son 365 Gün
-                </option>
-          
-              </Input>
-              
+			<Select
+        className="basic-single"
+        classNamePrefix="select"
+        defaultValue={timeOptions[0]}
+		isClearable={true} // Her zaman clearable
+        isSearchable={true} // Her zaman searchable
+        name="time"
+        options={timeOptions}
+      />
+
             </Col>
           </FormGroup>
         </Col>

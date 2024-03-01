@@ -14,7 +14,7 @@ const Footer = () => {
 						</Col>
 						<Col md="6">
 							<p className="pull-right mb-0">
-								Created by Özgür <i className="fa fa-heart"></i>
+								Created by Shopayza <i className="fa fa-heart"></i>
 							</p>
 						</Col>
 					</Row>

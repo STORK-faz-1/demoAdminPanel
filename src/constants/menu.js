@@ -15,7 +15,7 @@ import {
     Users,
     Chrome,
     Paperclip,
-    BarChart,Settings,Archive, LogIn, Activity, Book, PlusCircle, UploadCloud, FilePlus
+    BarChart,Settings,Archive, LogIn, Activity, Book, PlusCircle, UploadCloud, FilePlus, Package, FileText
 } from 'react-feather';
 
 export const MENUITEMS = [
@@ -166,9 +166,21 @@ export const MENUITEMS = [
     {
         title: 'Döviz', path: '/localization/currency-rates', icon: Activity, type: 'link', active: false
     },
+   
     {
         title: 'Maliyet', path: '/localization/taxes', icon: Book, type: 'link', active: false
     },
+
+    {
+        title: 'Stok', icon: Package, type: 'sub', active: false, children: [
+            { path: '/stock/home', title: 'Stok Yönetim', type: 'link' },
+            { path: '/stock/new-stock', title: 'Yeni Stok', type: 'link' },
+            { path: '/stock/stock-list', title: 'Stok Listesi', type: 'link' },
+            { path: '/stock/warehouses', title: 'Depolar', type: 'link' },
+            { path: '/stock/warehouse-moves', title: 'Depo Hareketi', type: 'link' },
+        ]
+    },
+   
     // {
     //     title: 'Envanter', icon: Paperclip, type: 'sub', children: [
     //         { path: '/dashboard', title: 'Ürün Varyasyonları', type: 'link' },
@@ -199,7 +211,7 @@ export const MENUITEMS = [
     // },
     
     {
-        title: 'Faturalar',path:'/invoice', icon: Archive, type: 'link', active: false
+        title: 'Faturalar',path:'/invoice', icon: FileText, type: 'link', active: false
     },
     {
         title: 'Ayarlar', icon: Settings, type: 'sub', children: [

@@ -362,7 +362,7 @@ const Campaigns = () => {
                     <Col sm="12">
 						<Card>
 							<CardHeader>
-								<h5>Satış Özeti</h5>
+								<h5>Sales Summary</h5>
 							</CardHeader>
 							<CardBody>
 								<Row>
@@ -385,7 +385,7 @@ const Campaigns = () => {
 													legend_toggle
 												/>
 											</div> */}
-											<h6>Konuma Göre Satışlar</h6>
+											<h6>Sales by Location</h6>
 											<div className="peity-chart-dashboard text-center">
 												<Chart
 													chartType="PieChart"
@@ -407,7 +407,7 @@ const Campaigns = () => {
 													<div className="order-color-primary"></div>
 													<Media body>
 														<h6 className="mb-0">
-															Türkiye{" "}
+															Turkey{" "}
 															<span className="pull-right">$157</span>
 														</h6>
 													</Media>
@@ -416,7 +416,7 @@ const Campaigns = () => {
 													<div className="order-color-secondary"></div>
 													<Media body>
 														<h6 className="mb-0">
-															Makedonya <span className="pull-right">$347</span>
+														Macedonia <span className="pull-right">$347</span>
 														</h6>
 													</Media>
 												</Media>
@@ -424,7 +424,7 @@ const Campaigns = () => {
 													<div className="order-color-danger"></div>
 													<Media body>
 														<h6 className="mb-0">
-															Rusya<span className="pull-right">$468</span>
+														Russia<span className="pull-right">$468</span>
 														</h6>
 													</Media>
 												</Media>
@@ -432,7 +432,7 @@ const Campaigns = () => {
 													<div className="order-color-warning"></div>
 													<Media body>
 														<h6 className="mb-0">
-															Sırbistan
+														Serbia
 															<span className="pull-right">$742</span>
 														</h6>
 													</Media>
@@ -441,7 +441,7 @@ const Campaigns = () => {
 													<div className="order-color-success"></div>
 													<Media body>
 														<h6 className="mb-0">
-															Bulgaristan{" "}
+														Bulgaria{" "}
 															<span className="pull-right">$647</span>
 														</h6>
 													</Media>
@@ -524,48 +524,48 @@ const Campaigns = () => {
 	  caret size="sm"
       color="primary"
     >
-      Ay'lara göre Gelir
+      Income by Months
     </DropdownToggle>
     <DropdownMenu>
       {/* <DropdownItem header>
         dropdown
       </DropdownItem> */}
       <DropdownItem>
-        Ocak
+        January
       </DropdownItem>
       {/* <DropdownItem divider /> */}
       <DropdownItem>
-        Şubat
+        February
       </DropdownItem>
 	  <DropdownItem>
-        Mart
+        March
       </DropdownItem>
 	  <DropdownItem>
-        Nisan
+        April
       </DropdownItem>
 	  <DropdownItem>
-        Mayıs
+        May
       </DropdownItem>
 	  <DropdownItem>
-        Haziran
+        June
       </DropdownItem>
 	  <DropdownItem>
-        Temmuz
+        July
       </DropdownItem>
 	  <DropdownItem>
-        Ağustos
+        August
       </DropdownItem>
 	  <DropdownItem>
-        Eylül
+        September
       </DropdownItem>
 	  <DropdownItem>
-        Ekim
+        October
       </DropdownItem>
 	  <DropdownItem>
-        Kasım
+        November
       </DropdownItem>
 	  <DropdownItem>
-        Aralık
+        December
       </DropdownItem>
     </DropdownMenu>
   </UncontrolledDropdown>

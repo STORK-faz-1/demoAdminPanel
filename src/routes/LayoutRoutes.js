@@ -7,6 +7,11 @@ import ListCoupons from '../components/coupons/list-coupons'
 import Dashboard from '../components/dashboard'
 import Invoice from '../components/invoice'
 import Rates from '../components/localization/rates'
+import StockList from '../components/stock/stock-list'
+import StockHome from '../components/stock/home'
+import NewStock from '../components/stock/new-stock'
+import WarehouseMoves from '../components/stock/warehouse-moves'
+import Warehouses from '../components/stock/warehouses'
 import Taxes from '../components/localization/taxes'
 import Translations from '../components/localization/translations'
 import Media from '../components/media/media'
@@ -193,6 +198,26 @@ const LayoutRoutes = () => {
 						<Route
 							path={`${process.env.PUBLIC_URL}/localization/currency-rates`}
 							element={<Rates />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/stock/stock-list`}
+							element={<StockList />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/stock/home`}
+							element={<StockHome />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/stock/new-stock`}
+							element={<NewStock />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/stock/warehouse-moves`}
+							element={<WarehouseMoves />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/stock/warehouses`}
+							element={<Warehouses />}
 						/>
 						<Route
 							path={`${process.env.PUBLIC_URL}/localization/taxes`}

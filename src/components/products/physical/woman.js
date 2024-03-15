@@ -1,32 +1,31 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect  } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
-import { useEffect } from 'react';
-import Datatable from "../../common/datatable";
 import Select from 'react-select';
-
+import axios from 'axios';
+import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import Paper from '@mui/material/Paper';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import { Link } from 'react-router-dom'; 
 import {
-	Button,
 	Card,
 	CardBody,
-	CardHeader,
 	Col,
 	Container,
 	Form,
 	FormGroup,
 	Input,
-	Label,
 	Modal,
 	ModalBody,
-	ModalFooter,
 	ModalHeader,
-	Row,
-	UncontrolledPopover,
-	PopoverHeader,
-	PopoverBody,
-	Popover,
-	Table
+	Row
 } from "reactstrap";
 
 const Category = () => {
@@ -228,30 +227,111 @@ const Category = () => {
 		  ],
 		  
 	  ];
-	  
+	  const URL = "http://185.165.76.194:9069/api/v1";
+
+	  const [products, setProducts] = useState([]);
+	  const [page, setPage] = useState(1);
+  
+	  useEffect(() => {
+		  let ignore = false;
+  
+		  const generateToken = async () => {
+			  const url = `${URL}/generate-token`;
+			  const payload = {
+				  email: 'taner.akdemir@algebransoft.com',
+				  password: 'Abcde123*',
+			  };
+  
+			  const response = await axios.post(url, payload, {
+				  headers: {
+					  'Content-Type': 'application/json',
+				  },
+			  });
+  
+			  if (response.status === 200 && response.data.success) {
+				  return response.data.data;
+			  } else {
+				  throw new Error('Token could not be retrieved');
+			  }
+		  };
+  
+		  const fetchProducts = async (token, pageNum) => {
+            try {
+                const url = `${URL}/product?is_active=true&page=${pageNum}`;
+                const response = await axios.get(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-token': token
+                    },
+                });
+
+                if (response.status === 200 && response.data.success) {
+                    const productsData = response.data.data.map(product => {
+                        const colorAttribute = product.attributes.find(attr => attr.key === 'Renk');
+                        const color = colorAttribute ? colorAttribute.value : '-'; 
+                        const firstImage = product.images.length > 0 ? product.images[0].image : '';
+                        
+                        return {
+                            id: product.id,
+                            name: product.name,
+                            platform: product.platform,
+                            brandName: product.platformBrandName,
+                            price: product.productVariant[0].price,
+                            productUrl: product.platformUrl,
+                            size: product.productVariant.map(variant => variant.variantValue).join(', '),
+                            color: color,
+                            image: firstImage,
+                        };
+                    });
+                    return productsData;
+                } else {
+                    throw new Error('Products could not be fetched');
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                return [];
+            }
+        };
+		
+		  generateToken()
+			  .then(token => fetchProducts(token, page))
+			  .then(productsData => setProducts(productsData))
+			  .catch(error => console.error('Token could not be retrieved:', error));
+  
+		  return () => { ignore = true; };
+	  }, [page]);
+  
+	  const columns = [
+		  { id: 'id', label: 'Ürün Id', minWidth: 100 },
+		  { id: 'image', label: 'Ürün Resmi', minWidth: 100 },
+		  { id: 'name', label: 'Ürün İsmi', minWidth: 100 },
+		  { id: 'platform', label: 'Platform', minWidth: 100 },
+		  { id: 'brandName', label: 'Marka', minWidth: 100 },
+		  { id: 'color', label: 'Renk', minWidth: 100 },
+		  { id: 'size', label: 'Bedenler', minWidth: 100 },
+		  { id: 'price', label: 'Fiyat', minWidth: 100 },
+		  { id: 'seller', label: 'Satıcı', minWidth: 100 },
+		  { id: 'productUrl', label: 'Ürün Url', minWidth: 100 }
+	  ];
+  
+	  const loadPreviousPage = () => {
+		  setPage(page - 1);
+	  };
+  
+	  const loadNextPage = () => {
+		  setPage(page + 1);
+	  };
+  
 	const [open, setOpen] = useState(false);
-	const [products, setProducts] = useState([]);
 	const onOpenModal = () => {
 		setOpen(true);
 	};
 	const onCloseModal = () => {
 		setOpen(false);
 	};
-	const apiUrl = 'https://localhost:7217/ProductGatherer?category=0&pi=1';
-	useEffect(() => {
-		axios.get(apiUrl)
-		.then((response) => {
-		  console.log('API Response Data:', response.data);
-		  setProducts(response.data);
-		})
-		.catch((error) => {
-		  console.error('API isteği başarısız: ', error);
-		});
-	  
-	  }, []); 
 	  const [modal, setModal] = useState(false);
 	  const categoryHeaders = ['Giyim', 'Ayakkabı', 'Aksesuar & Çanta', 'Çanta', 'İç Giyim', 'Lüks & Designer', 'Spor & Outdoor'];
-	  const columnHeaders = ['Ürün Id', 'Ürün İsmi','Platform', 'Marka', 'Renkler',  'Bedenler', 'Fiyat'  ];
+
   const toggle = () => setModal(!modal);
 	return (
 		<Fragment>
@@ -259,18 +339,18 @@ const Category = () => {
 			<Container fluid={true}>
 			<Col lg="4">
 			<Row>
-					<FormGroup row>
+				<FormGroup row>
 	
-            <Col xl="6 xl-100">
-			<Select
-        className="basic-single"
-        classNamePrefix="select"
-        defaultValue={storeOptions[0]}
-		isClearable={true} // Her zaman clearable
-        isSearchable={true} // Her zaman searchable
-        name="store"
-        options={storeOptions}
-      />
+					<Col xl="6 xl-100">
+					<Select
+				className="basic-single"
+				classNamePrefix="select"
+				defaultValue={storeOptions[0]}
+				isClearable={true} 
+				isSearchable={true} 
+				name="store"
+				options={storeOptions}
+			/>
             </Col>
       
           </FormGroup>
@@ -323,31 +403,78 @@ const Category = () => {
 			 </Form>
 							
 								<div className="clearfix"></div>
-								<div className="table-container" >
-								<Table>
-                  <thead>
-                    <tr>
-                      {columnHeaders.map((header, index) => (
-                        <th key={index}>{header}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {products.map((product, index) => (
-                      <tr key={index}>
-                        <td>{product.productId}</td>
-                        <td>{product.productName}</td>
-						<td>{product.platform}</td>
-						<td>{product.brand}</td>
-                        <td>{product.price}</td>
-						<td>{product.shipmentDay}</td>
-						<td>{product.sizes}</td>
-                        <td>{product.city}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-								</div>
+								{/* <div className="table-container" ></div> */}
+								               <Paper sx={{ width: '100%', overflowX: 'auto' }}>
+                                        <TableContainer>
+                                            <Table stickyHeader aria-label="sticky table">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        {columns.map((column) => (
+                                                            <TableCell
+                                                                key={column.id}
+                                                                align="center"
+                                                                style={{ minWidth: column.minWidth }}
+                                                            >
+                                                                {column.label}
+                                                            </TableCell>
+                                                        ))}
+                                                    </TableRow>
+                                                </TableHead>
+												<TableBody>
+												{products.map((product) => {
+    return (
+        <TableRow key={product.id}>
+            {columns.map((column) => {
+                const value = product[column.id];
+                if (column.id === 'image') {
+                    return (
+                        <TableCell key={column.id}>
+                            <img src={value} alt={product.name} style={{ width: '100px', height: 'auto' }} />
+                        </TableCell>
+                    );
+                } else if (column.id === 'productUrl') {
+                    return (
+                        <TableCell key={column.id} align={column.align}>
+                            <Link to={value} target="_blank">Ürüne Git</Link>
+                        </TableCell>
+                    );
+                } else if (column.id === 'price') {
+                    return (
+                        <TableCell key={column.id} align={column.align}>
+                            {value + ' TL'}
+                        </TableCell>
+                    );
+                } else if (column.id === 'size') {
+                    return (
+                        <TableCell key={column.id} align={column.align}>
+                            {value ? value : '-'}
+                        </TableCell>
+                    );
+                }
+                return (
+                    <TableCell key={column.id} align={column.align}>
+                        {value}
+                    </TableCell>
+                );
+            })}
+        </TableRow>
+    );
+})}
+
+</TableBody>
+
+                                            </Table>
+                                        </TableContainer>
+                                    </Paper>                        
+									<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+									<Button onClick={loadPreviousPage} startIcon={<SkipPreviousIcon />} disabled={page === 1}>
+										{``}
+									</Button>
+									<p style={{ margin: '0 10px',textAlign: 'center' }}>{`Sayfa ${page}`}</p>
+									<Button onClick={loadNextPage} endIcon={<SkipNextIcon />}>
+										{``}
+									</Button>
+								    </div>
 							</CardBody>
 						</Card>
 					</Col>

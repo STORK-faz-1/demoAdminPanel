@@ -26,7 +26,7 @@ import Digitalsubcategory from '../components/products/digital/digital-sub-categ
 import Addproduct from '../components/products/physical/add-product'
 import AddProductAmazon from '../components/products/physical/add-product-amazon'
 import AddMoreProducts from '../components/products/physical/add-more-products.js'
-import Category from '../components/products/physical/category'
+import Woman from '../components/products/physical/woman'
 import Man from '../components/products/physical/man'
 import MomAndChild from '../components/products/physical/momAndChild'
 import Home from '../components/products/physical/home'
@@ -61,8 +61,8 @@ const LayoutRoutes = () => {
 						/>
 
 						<Route
-							path={`${process.env.PUBLIC_URL}/products/physical/category`}
-							element={<Category />}
+							path={`${process.env.PUBLIC_URL}/products/physical/woman`}
+							element={<Woman />}
 						/>
 						<Route
 							path={`${process.env.PUBLIC_URL}/products/physical/man`}

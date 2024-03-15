@@ -34,7 +34,7 @@ export const MENUITEMS = [
                 
             //     ]
             // },
-            { path: '/products/physical/category', title: 'Kadın', type: 'link' },
+            { path: '/products/physical/woman', title: 'Kadın', type: 'link' },
             { path: '/products/physical/man', title: 'Erkek', type: 'link' },
             { path: '/products/physical/momAndChild', title: 'Anne & Çocuk', type: 'link' },
             { path: '/products/physical/home', title: 'Ev & Yaşam', type: 'link' },

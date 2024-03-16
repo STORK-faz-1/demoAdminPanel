@@ -37,10 +37,10 @@ export const MENUITEMS = [
             { path: '/products/physical/woman', title: 'Kadın', type: 'link' },
             { path: '/products/physical/man', title: 'Erkek', type: 'link' },
             { path: '/products/physical/momAndChild', title: 'Anne & Çocuk', type: 'link' },
-            { path: '/products/physical/home', title: 'Ev & Yaşam', type: 'link' },
-            { path: '/products/physical/shoeAndBag', title: 'Ayakkabı & Çanta', type: 'link' },
-            { path: '/products/physical/electronic', title: 'Elektronik', type: 'link' },
-            { path: '/products/physical/sportOutdoor', title: 'Spor & Outdoor', type: 'link' },
+            // { path: '/products/physical/home', title: 'Ev & Yaşam', type: 'link' },
+            // { path: '/products/physical/shoeAndBag', title: 'Ayakkabı & Çanta', type: 'link' },
+            // { path: '/products/physical/electronic', title: 'Elektronik', type: 'link' },
+            // { path: '/products/physical/sportOutdoor', title: 'Spor & Outdoor', type: 'link' },
 
             // {
             //     title: 'Erkek', type: 'sub', active: false, children: [

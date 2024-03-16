@@ -1,32 +1,31 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect  } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
-import { useEffect } from 'react';
-import Datatable from "../../common/datatable";
 import Select from 'react-select';
-
+import axios from 'axios';
+import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import Paper from '@mui/material/Paper';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import { Link } from 'react-router-dom'; 
 import {
-	Button,
 	Card,
 	CardBody,
-	CardHeader,
 	Col,
 	Container,
 	Form,
 	FormGroup,
 	Input,
-	Label,
 	Modal,
 	ModalBody,
-	ModalFooter,
 	ModalHeader,
-	Row,
-	UncontrolledPopover,
-	PopoverHeader,
-	PopoverBody,
-	Popover,
-	Table
+	Row
 } from "reactstrap";
 
 const Category = () => {
@@ -42,256 +41,169 @@ const Category = () => {
 		  {children}
 		</label>
 	  );
-	const cellContents = [
-		[
-		  { text: "Bebek Takımları", link: "link1" },
-		  { text: "Elbise", link: "link2" },
-		  { text: "Sweatshirt", link: "link2" },
-		  { text: "Bebek Bezi", link: "link2" },
-		  { text: "Eğitici Oyuncaklar", link: "link2" },
-		  { text: "Biberon & Emzik", link: "link2" },
-		  { text: "Bebek Arabası & Puset", link: "link2" },
-		  { text: "Bebek Beşiği", link: "link2" },
 
-		],
-		[
-			{ text: "Ayakkabı", link: "link1" },
-			{ text: "Sweatshirt", link: "link2" },
-			{ text: "Spor Ayakkabı", link: "link2" },
-			{ text: "Bebek Şampuanı", link: "link2" },
-			{ text: "Oyuncak Araba", link: "link2" },
-			{ text: "Göğüs Pompası", link: "link2" },
-			{ text: "Park Yatak", link: "link2" },
-			{ text: "Bebek Yatağı", link: "link2" },
+	  const URL = "http://185.165.76.194:9069/api/v1";
 
-		],
-		[
-			{ text: "Hastane Çıkışı", link: "link1" },
-			{ text: "Spor Ayakkabı", link: "link2" },
-			{ text: "Eşofman", link: "link2" },
-			{ text: "Krem & Yağlar", link: "link2" },
-			{ text: "Oyuncak Bebek", link: "link2" },
-			{ text: "Mama Sandalyesi", link: "link2" },
-			{ text: "Ana Kucağı", link: "link2" },
-			{ text: "Bebek Nevresimleri", link: "link2" },
+	  const [products, setProducts] = useState([]);
+	  const [page, setPage] = useState(1);
+  
+	  useEffect(() => {
+		  let ignore = false;
+  
+		  const generateToken = async () => {
+			  const url = `${URL}/generate-token`;
+			  const payload = {
+				  email: 'taner.akdemir@algebransoft.com',
+				  password: 'Abcde123*',
+			  };
+  
+			  const response = await axios.post(url, payload, {
+				  headers: {
+					  'Content-Type': 'application/json',
+				  },
+			  });
+  
+			  if (response.status === 200 && response.data.success) {
+				  return response.data.data;
+			  } else {
+				  throw new Error('Token could not be retrieved');
+			  }
+		  };
+  
+		  const fetchProducts = async (token, pageNum) => {
+            try {
+                const url = `${URL}/product?is_active=true&page=${pageNum}`;
+                const response = await axios.get(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-token': token
+                    },
+                });
 
-		],
-		[
-			{ text: "Yenidoğan Kıyafetleri", link: "link1" },
-			{ text: "Eşofman", link: "link2" },
-			{ text: "İç Giyim & Pijama", link: "link2" },
-			{ text: "Bebek Çantası", link: "link2" },
-			{ text: "Bebek & Okul Öncesi", link: "link2" },
-			{ text: "Mama Önlüğü", link: "link2" },
-			{ text: "Portbebe & Kanguru", link: "link2" },
-			{ text: "Oyuncak Sepetleri", link: "link2" },
+                if (response.status === 200 && response.data.success) {
+                    const productsData = response.data.data.filter(product => {
+                        return product.category && product.category.pid === 97;
+                    }).map(product => {
+                        const colorAttribute = product.attributes.find(attr => attr.key === 'Renk');
+                        const color = colorAttribute ? colorAttribute.value : '-';
+                        const firstImage = product.images.length > 0 ? product.images[0].image : '';
 
-		],
-		
-		[
-			{ text: "Tulum", link: "link1" },
-			{ text: "İç Giyim & Pijama", link: "link2" },
-			{ text: "Tişört & Atlet", link: "link2" },
-			{ text: "Bebek Sabunları", link: "link2" },
-			{ text: "Kumandalı Oyuncak", link: "link2" },
-			{ text: "Alıştırma Bardağı", link: "link2" },
-			{ text: "Yürüteç", link: "link2" },
-			{ text: "Bebek Cibinlik", link: "link2" },
+                        return {
+                            id: product.id,
+                            name: product.name,
+                            platform: product.platform,
+                            brandName: product.platformBrandName,
+                            price: product.productVariant[0].price,
+                            productUrl: product.platformUrl,
+                            size: product.productVariant.map(variant => variant.variantValue).join(', '),
+                            color: color,
+                            image: firstImage,
+                        };
+                    });
 
-		],
-		[
-			{ text: "Body & Zıbın", link: "link1" },
-			{ text: "Tişört & Atlet", link: "link2" },
-			{ text: "Günlük Ayakkabı", link: "link2" },
-			{ text: "Bebek Deterjanları", link: "link2" },
-			{ text: "Robot Oyuncak", link: "link2" },
-			{ text: "Biberon Temizleyici", link: "link2" },
-			{ text: "Oto Koltuğu", link: "link2" },
-			{ text: "Oyuncak Dolabı", link: "link2" },
+                    if (productsData.length < 15) {
+                        let remainingCount = 15 - productsData.length;
+                        let nextPage = pageNum + 1;
 
-		  ],
-		  [
-			  { text: "Tişört & Atlet", link: "link1" },
-			  { text: "Tayt", link: "link2" },
-			  { text: "Okul Çantası", link: "link2" },
-			  { text: "Bebek Vücut Kremi", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Biberon Seti", link: "link2" },
-			  { text: "Baston Puset", link: "link2" },
-			  { text: "Bebek Odası Mobilyaları", link: "link2" },
+                        while (remainingCount > 0) {
+                            const nextPageUrl = `${URL}/product?is_active=true&page=${nextPage}`;
+                            const nextResponse = await axios.get(nextPageUrl, {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'x-api-token': token
+                                },
+                            });
 
-		  ],
-		  [
-			  { text: "Elbise", link: "link1" },
-			  { text: "Günlük Ayakkabı", link: "link2" },
-			  { text: "Şort", link: "link2" },
-			  { text: "Islak Mendil", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Bebek Maması", link: "link2" },
-			  { text: "Kanguru", link: "link2" },
-			  { text: "Bebek Oyun Matları", link: "link2" },
+                            if (nextResponse.status === 200 && nextResponse.data.success) {
+                                const nextPageProducts = nextResponse.data.data.filter(product => {
+                                    return product.category && product.category.pid === 97;
+                                }).map(product => {
+                                    const colorAttribute = product.attributes.find(attr => attr.key === 'Renk');
+                                    const color = colorAttribute ? colorAttribute.value : '-';
+                                    const firstImage = product.images.length > 0 ? product.images[0].image : '';
 
-		  ],
-		  [
-			  { text: "Şort", link: "link1" },
-			  { text: "Şort", link: "link2" },
-			  { text: "Gömlek", link: "link2" },
-			  { text: "Bebek Tarağı", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Kavanoz Mama", link: "link2" },
-			  { text: "Bebek Salıncakları", link: "link2" },
-			  { text: "Bebek Oyun Parkı", link: "link2" },
+                                    return {
+                                        id: product.id,
+                                        name: product.name,
+                                        platform: product.platform,
+                                        brandName: product.platformBrandName,
+                                        price: product.productVariant[0].price,
+                                        productUrl: product.platformUrl,
+                                        size: product.productVariant.map(variant => variant.variantValue).join(', '),
+                                        color: color,
+                                        image: firstImage,
+                                    };
+                                });
 
-		  ],
-		  [
-			{ text: "Bebek Patiği", link: "link1" },
-			{ text: "Mont", link: "link2" },
-			{ text: "Mont", link: "link2" },
-			{ text: "Bebek Yağı", link: "link2" },
-			{ text: "", link: "link2" },
-			{ text: "Sterilizatör", link: "link2" },
-			{ text: "", link: "link2" },
-			{ text: "", link: "link2" },
+                                productsData.push(...nextPageProducts);
+                                remainingCount = 15 - productsData.length;
+                                nextPage++;
+                            } else {
+                                break; 
+                            }
+                        }
+                    }
 
-		],
-		  [
-			  { text: "Hırka", link: "link1" },
-			  { text: "Çocuk Oyun Evi", link: "link2" },
-			  { text: "Oyuncak Traktör", link: "link2" },
-			  { text: "Bebek Buhar Makinesi", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Bebek Bakım Çantası", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
+                    return productsData.slice(0, 15); 
+                } else {
+                    throw new Error('Products could not be fetched');
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                return [];
+            }
+        };
 
-		  ],
-		  [
-			{ text: "Battaniye", link: "link1" },
-			{ text: "Oyuncak Bebek", link: "link2" },
-			{ text: "Akülü Araba", link: "link2" },
-			{ text: "Bebek Ateş Ölçer", link: "link2" },
-			{ text: "", link: "link2" },
-			{ text: "Yemek Setleri", link: "link2" },
-			{ text: "", link: "link2" },
-			{ text: "", link: "link2" },
+        generateToken()
+            .then(token => fetchProducts(token, page))
+            .then(productsData => setProducts(productsData))
+            .catch(error => console.error('Token could not be retrieved:', error));
 
-		  ],
-		  [
-			  { text: "Alt Üst Takım", link: "link1" },
-			  { text: "Oyuncak Mutfak", link: "link2" },
-			  { text: "Kumandalı Araba", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Kaşık Maması", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
+        return () => { ignore = true; };
+    }, [page]);
 
-		  ],
-		  [
-			  { text: "Tişört", link: "link1" },
-			  { text: "Kaban", link: "link2" },
-			  { text: "Bisiklet", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Buharlı Pişirici", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-
-		  ],
-		  [
-			  { text: "Etek", link: "link1" },
-			  { text: "Abiye & Elbise", link: "link2" },
-			  { text: "Boxer", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Termal Çanta", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-
-		  ],
-		  
-		  [
-			  { text: "Çorap", link: "link1" },
-			  { text: "Ceket", link: "link2" },
-			  { text: "İçlik", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Süt Pompası", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-
-		  ],
-		  
-		  [
-			{ text: "Şapka", link: "link1" },
-			{ text: "Pantolon", link: "link2" },
-			{ text: "Bot", link: "link2" },
-			{ text: "", link: "link2" },
-			{ text: "", link: "link2" },
-			{ text: "Emzirme Önlüğü", link: "link2" },
-			{ text: "", link: "link2" },
-			{ text: "", link: "link2" },
-
-		  ],
-		  [
-			  { text: "Eldiven", link: "link1" },
-			  { text: "Kazak", link: "link2" },
-			  { text: "Krampon", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Emzirme Minderi", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-
-		  ],
-		  [
-			  { text: "Eşofman", link: "link1" },
-			  { text: "Bot", link: "link2" },
-			  { text: "Şapka & Bere & Eldiven", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Göğüs Pedi", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-
-		  ],
-		  [
-			  { text: "Bere", link: "link1" },
-			  { text: "Şapka & Bere & Eldiven", link: "link2" },
-			  { text: "Takım Elbise", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "Göğüs Kremi", link: "link2" },
-			  { text: "", link: "link2" },
-			  { text: "", link: "link2" },
-
-		  ],
-		  
+  
+	  const columns = [
+		  { id: 'id', label: 'Ürün Id', minWidth: 100 },
+		  { id: 'image', label: 'Ürün Resmi', minWidth: 100 },
+		  { id: 'name', label: 'Ürün İsmi', minWidth: 100 },
+		  { id: 'platform', label: 'Platform', minWidth: 100 },
+		  { id: 'brandName', label: 'Marka', minWidth: 100 },
+		  { id: 'color', label: 'Renk', minWidth: 100 },
+		  { id: 'size', label: 'Bedenler', minWidth: 100 },
+		  { id: 'price', label: 'Fiyat', minWidth: 100 },
+		  { id: 'productUrl', label: 'Ürün Url', minWidth: 100 }
 	  ];
-	  
+  
+	  const loadPreviousPage = () => {
+		  setPage(page - 1);
+	  };
+  
+	  const loadNextPage = () => {
+		  setPage(page + 1);
+	  };
+  
 	const [open, setOpen] = useState(false);
-	const [products, setProducts] = useState([]);
 	const onOpenModal = () => {
 		setOpen(true);
 	};
 	const onCloseModal = () => {
 		setOpen(false);
 	};
-	const apiUrl = 'https://localhost:7217/ProductGatherer?category=0&pi=1';
-	useEffect(() => {
-		axios.get(apiUrl)
-		.then((response) => {
-		  console.log('API Response Data:', response.data);
-		  setProducts(response.data);
-		})
-		.catch((error) => {
-		  console.error('API isteği başarısız: ', error);
-		});
-	  
-	  }, []); 
+	const [categories, setCategories] = useState([]);
+
 	  const [modal, setModal] = useState(false);
-	  const categoryHeaders = ['Bebek', 'Kız Çocuk', 'Erkek Çocuk', 'Bebek Bakım', 'Oyuncak', 'Beslenme Emzirme', 'Taşıma & Güvenlik', 'Bebek Odası'];
-	  const columnHeaders = ['Ürün Id', 'Ürün İsmi','Platform', 'Marka', 'Renkler',  'Bedenler', 'Fiyat'  ];
+	  useEffect(() => {
+        axios.get(`${URL}/category/a41dfd6c-0716-11ee-b6c4-02120a000912/subcategory?only_main=true`)
+            .then(response => {
+                if (response.status === 200 && response.data.success) {
+                    setCategories(response.data.data);
+                } else {
+                    throw new Error('Categories could not be fetched');
+                }
+            })
+            .catch(error => console.error('Error fetching categories:', error));
+    }, []);
   const toggle = () => setModal(!modal);
 	return (
 		<Fragment>
@@ -299,18 +211,18 @@ const Category = () => {
 			<Container fluid={true}>
 			<Col lg="4">
 			<Row>
-					<FormGroup row>
+				<FormGroup row>
 	
-            <Col xl="6 xl-100">
-			<Select
-        className="basic-single"
-        classNamePrefix="select"
-        defaultValue={storeOptions[0]}
-		isClearable={true} // Her zaman clearable
-        isSearchable={true} // Her zaman searchable
-        name="store"
-        options={storeOptions}
-      />
+					<Col xl="6 xl-100">
+					<Select
+				className="basic-single"
+				classNamePrefix="select"
+				defaultValue={storeOptions[0]}
+				isClearable={true} 
+				isSearchable={true} 
+				name="store"
+				options={storeOptions}
+			/>
             </Col>
       
           </FormGroup>
@@ -321,34 +233,40 @@ const Category = () => {
 						<Card>	
 							<CardBody>
 							<div>
-      <Button color="secondary" onClick={toggle} >
+      <Button variant="outlined"  onClick={toggle} >
         Kategoriler
       </Button>
-      <Modal isOpen={modal} toggle={toggle} size="xl" centered>
-        <ModalHeader toggle={toggle}></ModalHeader>
-		<ModalBody>
-          <Table >
-            <thead>
-              <tr>
-                {categoryHeaders.map((header, index) => (
-                  <th key={index}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-            {cellContents.map((row, rowIndex) => (
-  <tr key={rowIndex}>
-    {row.map((cellData, colIndex) => (
-      <td key={colIndex}>
-        <a href={cellData.link}>{cellData.text}</a>
-      </td>
-    ))}
-  </tr>
-))}
-            </tbody>
-          </Table>
-        </ModalBody>
-      </Modal>
+      <Modal isOpen={modal} toggle={toggle} size="m" centered>
+                                        <ModalHeader toggle={toggle}></ModalHeader>
+                                        <ModalBody>
+                                            <TableContainer>
+                                                <Table>
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            {categories.map(category => (
+                                                                <TableCell key={category.id}>
+                                                                    <div className="text-center">{category.name}</div>
+                                                                </TableCell>
+                                                            ))}
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            {categories.map(category => (
+                                                                <TableCell key={category.id}>
+                                                                    {category.subCategories && category.subCategories.map(subCategory => (
+                                                                        <div key={subCategory.id}>
+                                                                            <div className="text-center">{subCategory.name}</div>
+                                                                        </div>
+                                                                    ))}
+                                                                </TableCell>
+                                                            ))}
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        </ModalBody>
+                                    </Modal>
     </div>
 <hr/>
 	<Form >
@@ -363,31 +281,78 @@ const Category = () => {
 			 </Form>
 							
 								<div className="clearfix"></div>
-								<div className="table-container" >
-								<Table>
-                  <thead>
-                    <tr>
-                      {columnHeaders.map((header, index) => (
-                        <th key={index}>{header}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {products.map((product, index) => (
-                      <tr key={index}>
-                        <td>{product.productId}</td>
-                        <td>{product.productName}</td>
-						<td>{product.platform}</td>
-						<td>{product.brand}</td>
-                        <td>{product.price}</td>
-						<td>{product.shipmentDay}</td>
-						<td>{product.sizes}</td>
-                        <td>{product.city}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-								</div>
+								{/* <div className="table-container" ></div> */}
+								               <Paper sx={{ width: '100%', overflowX: 'auto' }}>
+                                        <TableContainer>
+                                            <Table stickyHeader aria-label="sticky table">
+                                                <TableHead>
+                                                    <TableRow>
+                                                        {columns.map((column) => (
+                                                            <TableCell
+                                                                key={column.id}
+                                                                align="center"
+                                                                style={{ minWidth: column.minWidth }}
+                                                            >
+                                                                {column.label}
+                                                            </TableCell>
+                                                        ))}
+                                                    </TableRow>
+                                                </TableHead>
+												<TableBody>
+												{products.map((product) => {
+    return (
+        <TableRow key={product.id}>
+            {columns.map((column) => {
+                const value = product[column.id];
+                if (column.id === 'image') {
+                    return (
+                        <TableCell key={column.id}>
+                            <img src={value} alt={product.name} style={{ width: '100px', height: 'auto' }} />
+                        </TableCell>
+                    );
+                } else if (column.id === 'productUrl') {
+                    return (
+                        <TableCell key={column.id} align={column.align}>
+                            <Link to={value} target="_blank">Ürüne Git</Link>
+                        </TableCell>
+                    );
+                } else if (column.id === 'price') {
+                    return (
+                        <TableCell key={column.id} align={column.align}>
+                            {value + ' TL'}
+                        </TableCell>
+                    );
+                } else if (column.id === 'size') {
+                    return (
+                        <TableCell key={column.id} align={column.align}>
+                            {value ? value : '-'}
+                        </TableCell>
+                    );
+                }
+                return (
+                    <TableCell key={column.id} align={column.align}>
+                        {value}
+                    </TableCell>
+                );
+            })}
+        </TableRow>
+    );
+})}
+
+</TableBody>
+
+                                            </Table>
+                                        </TableContainer>
+                                    </Paper>                        
+									<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+									<Button onClick={loadPreviousPage} startIcon={<SkipPreviousIcon />} disabled={page === 1}>
+										{``}
+									</Button>
+									<p style={{ margin: '0 10px',textAlign: 'center' }}>{`Sayfa ${page}`}</p>
+									<Button onClick={loadNextPage} endIcon={<SkipNextIcon />}>
+										{``}
+									</Button>
+								    </div>
 							</CardBody>
 						</Card>
 					</Col>

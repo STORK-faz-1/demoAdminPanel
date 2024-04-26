@@ -1,214 +1,179 @@
-import React, { Fragment, useState, useEffect  } from "react";
+import React, { useState, Fragment, useEffect, useMemo, useCallback } from "react";
 import Breadcrumb from "../../common/breadcrumb";
-import "react-toastify/dist/ReactToastify.css";
 import Select from 'react-select';
-import axios from 'axios';
-import Button from '@mui/material/Button';
-import Table from '@mui/material/Table';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import Paper from '@mui/material/Paper';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { Link } from 'react-router-dom'; 
 import {
 	Card,
 	CardBody,
 	Col,
 	Container,
-	Form,
 	FormGroup,
-	Input,
-	Modal,
-	ModalBody,
-	ModalHeader,
-	Row
+	Row,
+  Button
 } from "reactstrap";
+import axios from 'axios';
+import "react-toastify/dist/ReactToastify.css";
+import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 
 const Category = () => {
-	const storeOptions = [
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [token, setToken] = useState('');
+  const storeOptions = [
 		{ value: 'England', label: 'İngiltere' },
 		{ value: 'Canada', label: 'Kanada' },
 		{ value: 'Mexican', label: 'Meksika' },
 		
 	  ];
-	  const Checkbox = ({ children, ...props }) => (
-		<label style={{ marginRight: '1em' }}>
-		  <input type="checkbox" {...props} />
-		  {children}
-		</label>
-	  );
+  const URL = "http://194.116.236.60:9069/api/v1";
 
-	  const URL = "http://185.165.76.194:9069/api/v1";
+  const generateToken = async () => {
+    const url = `${URL}/generate-token`;
+    const payload = {
+      email: 'taner.akdemir@algebransoft.com',
+      password: 'Abcde123*',
+    };
 
-	  const [products, setProducts] = useState([]);
-	  const [page, setPage] = useState(1);
+    try {
+      const response = await axios.post(url, payload, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 200 && response.data.success) {
+        return response.data.data;
+      } else {
+        throw new Error('Token could not be retrieved');
+      }
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
+
+  const fetchProductsFromApi = useCallback(async (page) => {
+    setLoading(true);
+    try {
+      const url = `${URL}/product?is_active=true&page=${page}`;
+      const response = await axios.get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-token': token,
+        },
+      });
+
+      if (response.status === 200 && response.data.success) {
+
+            const productsFromApi = Array.isArray(response.data.data) ? response.data.data : [];
+            const productsData = productsFromApi.map((product) => {
+                const colorAttribute = Array.isArray(product.attributes) 
+                ? product.attributes.find(attr => attr.key === 'Renk')
+                : null;
+              const color = colorAttribute ? colorAttribute.value : '-';
+              
+            const sizes = product.productVariant
+            ? product.productVariant.map(variant => variant.variantValue).join(', '): 'Size information not available'; 
+            const firstImage = product.images.length > 0 ? product.images[0].image : '';
   
-	  useEffect(() => {
-		  let ignore = false;
+            return {
+              name: product.name,
+              platform: product.platform,
+              brandName: product.platformBrandName,
+              price: product.productVariant?.[0]?.price || 'Fiyat bilgisi yok',
+              size: sizes,
+              color: color,
+              image: firstImage,
+            };
+          });
   
-		  const generateToken = async () => {
-			  const url = `${URL}/generate-token`;
-			  const payload = {
-				  email: 'taner.akdemir@algebransoft.com',
-				  password: 'Abcde123*',
-			  };
+        
+          setData(prevData => [...prevData, ...productsData]);
+          setHasMore(productsData.length === 20); 
+          setCurrentPage(page);
+        } else {
+          throw new Error('Products could not be fetched');
+        }
+      } catch (error) {
+        setError(error.toString());
+      }
+      setLoading(false);
+    }, [token, URL]);
   
-			  const response = await axios.post(url, payload, {
-				  headers: {
-					  'Content-Type': 'application/json',
-				  },
-			  });
+    useEffect(() => {
+      (async () => {
+        const tokenResponse = await generateToken();
+        setToken(tokenResponse);
+        await fetchProductsFromApi(1);
+      })();
+    }, [fetchProductsFromApi]);
   
-			  if (response.status === 200 && response.data.success) {
-				  return response.data.data;
-			  } else {
-				  throw new Error('Token could not be retrieved');
-			  }
-		  };
-  
-		  const fetchProducts = async (token, pageNum) => {
-            try {
-                const url = `${URL}/product?is_active=true&page=${pageNum}`;
-                const response = await axios.get(url, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-api-token': token
-                    },
-                });
+    const loadMoreProducts = () => {
+        if (hasMore && !loading) {
+          fetchProductsFromApi(currentPage + 1);
+        }
+      };
 
-                if (response.status === 200 && response.data.success) {
-                    const productsData = response.data.data.filter(product => {
-                        return product.category && product.category.pid === 49;
-                    }).map(product => {
-                        const colorAttribute = product.attributes.find(attr => attr.key === 'Renk');
-                        const color = colorAttribute ? colorAttribute.value : '-';
-                        const firstImage = product.images.length > 0 ? product.images[0].image : '';
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'name',
+        header: 'Ürün İsmi',
+      },
+      {
+        accessorKey: 'image',
+        header: 'Resim',
+        Cell: ({ cell }) => {
+          const imgUrl = cell.getValue();
+          return imgUrl ? <img src={imgUrl} alt="Product" style={{ width: 50, height: 50 }} /> : 'No image';
+        },
+      },
+      {
+        accessorKey: 'platform',
+        header: 'Platform',
+      },
+      {
+        accessorKey: 'brandName',
+        header: 'Marka',
+      },
+      {
+        accessorKey: 'color',
+        header: 'Renk',
+      },
+      {
+        accessorKey: 'size',
+        header: 'Beden',
+      },
+ 
+      {
+        accessorKey: 'price',
+        header: 'Fiyat',
+        Cell: ({ cell }) => {
+          const price = cell.getValue();
+          return typeof price === 'number' ? price.toFixed(2) : 'Fiyat Bilgisi Yok';
+        },
+      },
+      
+    ],
+    [],
+  );
 
-                        return {
-                            id: product.id,
-                            name: product.name,
-                            platform: product.platform,
-                            brandName: product.platformBrandName,
-                            price: product.productVariant[0].price,
-                            productUrl: product.platformUrl,
-                            size: product.productVariant.map(variant => variant.variantValue).join(', '),
-                            color: color,
-                            image: firstImage,
-                        };
-                    });
+  const table = useMaterialReactTable({
+    columns,
+    data,
+    initialState: { showColumnFilters: true },
+    getRowId: row => row.name, 
+  });
 
-                    if (productsData.length < 15) {
-                        let remainingCount = 15 - productsData.length;
-                        let nextPage = pageNum + 1;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message || 'An error occurred'}</div>;
 
-                        while (remainingCount > 0) {
-                            const nextPageUrl = `${URL}/product?is_active=true&page=${nextPage}`;
-                            const nextResponse = await axios.get(nextPageUrl, {
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'x-api-token': token
-                                },
-                            });
-
-                            if (nextResponse.status === 200 && nextResponse.data.success) {
-                                const nextPageProducts = nextResponse.data.data.filter(product => {
-                                    return product.category && product.category.pid === 49;
-                                }).map(product => {
-                                    const colorAttribute = product.attributes.find(attr => attr.key === 'Renk');
-                                    const color = colorAttribute ? colorAttribute.value : '-';
-                                    const firstImage = product.images.length > 0 ? product.images[0].image : '';
-
-                                    return {
-                                        id: product.id,
-                                        name: product.name,
-                                        platform: product.platform,
-                                        brandName: product.platformBrandName,
-                                        price: product.productVariant[0].price,
-                                        productUrl: product.platformUrl,
-                                        size: product.productVariant.map(variant => variant.variantValue).join(', '),
-                                        color: color,
-                                        image: firstImage,
-                                    };
-                                });
-
-                                productsData.push(...nextPageProducts);
-                                remainingCount = 15 - productsData.length;
-                                nextPage++;
-                            } else {
-                                break; 
-                            }
-                        }
-                    }
-
-                    return productsData.slice(0, 15); 
-                } else {
-                    throw new Error('Products could not be fetched');
-                }
-            } catch (error) {
-                console.error('Error fetching products:', error);
-                return [];
-            }
-        };
-
-        generateToken()
-            .then(token => fetchProducts(token, page))
-            .then(productsData => setProducts(productsData))
-            .catch(error => console.error('Token could not be retrieved:', error));
-
-        return () => { ignore = true; };
-    }, [page]);
-
-  
-	  const columns = [
-		  { id: 'id', label: 'Ürün Id', minWidth: 100 },
-		  { id: 'image', label: 'Ürün Resmi', minWidth: 100 },
-		  { id: 'name', label: 'Ürün İsmi', minWidth: 100 },
-		  { id: 'platform', label: 'Platform', minWidth: 100 },
-		  { id: 'brandName', label: 'Marka', minWidth: 100 },
-		  { id: 'color', label: 'Renk', minWidth: 100 },
-		  { id: 'size', label: 'Bedenler', minWidth: 100 },
-		  { id: 'price', label: 'Fiyat', minWidth: 100 },
-		  { id: 'productUrl', label: 'Ürün Url', minWidth: 100 }
-	  ];
-  
-	  const loadPreviousPage = () => {
-		  setPage(page - 1);
-	  };
-  
-	  const loadNextPage = () => {
-		  setPage(page + 1);
-	  };
-  
-	const [open, setOpen] = useState(false);
-	const onOpenModal = () => {
-		setOpen(true);
-	};
-	const onCloseModal = () => {
-		setOpen(false);
-	};
-	const [categories, setCategories] = useState([]);
-
-	  const [modal, setModal] = useState(false);
-	  useEffect(() => {
-        axios.get(`${URL}/category/a50dec5e-9606-11ee-b6c4-02420a000912/subcategory?only_main=true`)
-            .then(response => {
-                if (response.status === 200 && response.data.success) {
-                    setCategories(response.data.data);
-                } else {
-                    throw new Error('Categories could not be fetched');
-                }
-            })
-            .catch(error => console.error('Error fetching categories:', error));
-    }, []);
-  const toggle = () => setModal(!modal);
-	return (
-		<Fragment>
-			<Breadcrumb title="Kadın Ürünleri" parent="Ürünler" />
-			<Container fluid={true}>
+  return (
+    <Fragment>
+    <Breadcrumb title="Kadın Ürünleri" parent="Ürünler" />
+    <Container fluid={true}>
 			<Col lg="4">
 			<Row>
 				<FormGroup row>
@@ -224,142 +189,36 @@ const Category = () => {
 				options={storeOptions}
 			/>
             </Col>
-      
           </FormGroup>
 		  </Row>
         </Col>
-				<Row>
+        <Row>
 					<Col sm="12">
 						<Card>	
 							<CardBody>
-							<div>
-      <Button variant="outlined"  onClick={toggle} >
-        Kategoriler
-      </Button>
-      <Modal isOpen={modal} toggle={toggle} size="m" centered>
-                                        <ModalHeader toggle={toggle}></ModalHeader>
-                                        <ModalBody>
-                                            <TableContainer>
-                                                <Table>
-                                                    <TableHead>
-                                                        <TableRow>
-                                                            {categories.map(category => (
-                                                                <TableCell key={category.id}>
-                                                                    <div className="text-center">{category.name}</div>
-                                                                </TableCell>
-                                                            ))}
-                                                        </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        <TableRow>
-                                                            {categories.map(category => (
-                                                                <TableCell key={category.id}>
-                                                                    {category.subCategories && category.subCategories.map(subCategory => (
-                                                                        <div key={subCategory.id}>
-                                                                            <div className="text-center">{subCategory.name}</div>
-                                                                        </div>
-                                                                    ))}
-                                                                </TableCell>
-                                                            ))}
-                                                        </TableRow>
-                                                    </TableBody>
-                                                </Table>
-                                            </TableContainer>
-                                        </ModalBody>
-                                    </Modal>
-    </div>
-<hr/>
-	<Form >
-							<FormGroup>
-    <Input
-      type="search"
-      placeholder="🔎 Ara.."
-      style={{ border: '1px solid #48b6ff', paddingLeft: '5px' }}
-	  className="search-input"
-    />
-  </FormGroup>
-			 </Form>
-							
-								<div className="clearfix"></div>
-								{/* <div className="table-container" ></div> */}
-								               <Paper sx={{ width: '100%', overflowX: 'auto' }}>
-                                        <TableContainer>
-                                            <Table stickyHeader aria-label="sticky table">
-                                                <TableHead>
-                                                    <TableRow>
-                                                        {columns.map((column) => (
-                                                            <TableCell
-                                                                key={column.id}
-                                                                align="center"
-                                                                style={{ minWidth: column.minWidth }}
-                                                            >
-                                                                {column.label}
-                                                            </TableCell>
-                                                        ))}
-                                                    </TableRow>
-                                                </TableHead>
-												<TableBody>
-												{products.map((product) => {
-    return (
-        <TableRow key={product.id}>
-            {columns.map((column) => {
-                const value = product[column.id];
-                if (column.id === 'image') {
-                    return (
-                        <TableCell key={column.id}>
-                            <img src={value} alt={product.name} style={{ width: '100px', height: 'auto' }} />
-                        </TableCell>
-                    );
-                } else if (column.id === 'productUrl') {
-                    return (
-                        <TableCell key={column.id} align={column.align}>
-                            <Link to={value} target="_blank">Ürüne Git</Link>
-                        </TableCell>
-                    );
-                } else if (column.id === 'price') {
-                    return (
-                        <TableCell key={column.id} align={column.align}>
-                            {value + ' TL'}
-                        </TableCell>
-                    );
-                } else if (column.id === 'size') {
-                    return (
-                        <TableCell key={column.id} align={column.align}>
-                            {value ? value : '-'}
-                        </TableCell>
-                    );
-                }
-                return (
-                    <TableCell key={column.id} align={column.align}>
-                        {value}
-                    </TableCell>
-                );
-            })}
-        </TableRow>
-    );
-})}
-
-</TableBody>
-
-                                            </Table>
-                                        </TableContainer>
-                                    </Paper>                        
-									<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
-									<Button onClick={loadPreviousPage} startIcon={<SkipPreviousIcon />} disabled={page === 1}>
-										{``}
-									</Button>
-									<p style={{ margin: '0 10px',textAlign: 'center' }}>{`Sayfa ${page}`}</p>
-									<Button onClick={loadNextPage} endIcon={<SkipNextIcon />}>
-										{``}
-									</Button>
-								    </div>
-							</CardBody>
-						</Card>
+    
+              {loading && <div>Loading...</div>}
+      {error && <div>Error: {error}</div>}
+      {!loading && !error && (
+        <div>
+          <MaterialReactTable table={table} />
+          <br></br>
+          {hasMore && (
+            <Button size="sm" onClick={loadMoreProducts} disabled={loading}>
+              Daha Fazla Ürün Yükle
+            </Button>
+          )}
+        </div>
+      )}
+      </CardBody>
+      </Card>
 					</Col>
 				</Row>
-			</Container>
+     
+		</Container>
 		</Fragment>
 	);
 };
+
 
 export default Category;

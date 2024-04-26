@@ -176,7 +176,9 @@ export const MENUITEMS = [
             { path: '/stock/home', title: 'Stok Yönetim', type: 'link' },
             { path: '/stock/new-stock', title: 'Yeni Stok', type: 'link' },
             { path: '/stock/stock-list', title: 'Stok Listesi', type: 'link' },
+            { path: '/stock/stock-detail-list', title: 'Stok Detay Listesi', type: 'link' },
             { path: '/stock/warehouses', title: 'Depolar', type: 'link' },
+            { path: '/stock/warehousesTwo', title: 'Depo', type: 'link' },
             { path: '/stock/warehouse-moves', title: 'Depo Hareketi', type: 'link' },
         ]
     },
@@ -213,12 +215,10 @@ export const MENUITEMS = [
     {
         title: 'Faturalar',path:'/invoice', icon: FileText, type: 'link', active: false
     },
+    
     {
-        title: 'Ayarlar', icon: Settings, type: 'sub', children: [
-            { path: '/settings/profile', title: 'Profil', type: 'link' },
-        ]
+        title: 'Ayarlar',path:'/settings/profile', icon: Settings, type: 'link', active: false
     },
-   
     {
         title: 'Çıkış',path:'/auth/login', icon: LogIn, type: 'link', active: false
     }

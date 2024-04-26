@@ -20,7 +20,7 @@ const UserMenu = () => {
 				</div>
 				<ul className="profile-dropdown onhover-show-div p-20 profile-dropdown-hover">
 					<li>
-						<Link to={`${process.env.PUBLIC_URL}/settings/profile`}>
+						<Link to={`${process.env.PUBLIC_URL}/profile`}>
 							<i data-feather="user"></i>Hesabı Düzenle
 						</Link>
 					</li>

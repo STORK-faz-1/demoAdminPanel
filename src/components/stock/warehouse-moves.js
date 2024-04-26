@@ -21,30 +21,26 @@ const columns = [
 	{ id: 'date', label: 'Tarih', minWidth: 170 },
 	{ id: 'sourceWarehouse', label: 'Kaynak Depo', minWidth: 170 },
 	{ id: 'targetWarehouse', label: 'Hedef Depo', minWidth: 170 },
+  { id: 'number', label: 'Miktar', minWidth: 170 },
 	{ id: 'explanation', label: 'Açıklama', minWidth: 170 },
 	
   ];
   
-  function createData(date, sourceWarehouse, targetWarehouse, explanation) {
-	return { date, sourceWarehouse, targetWarehouse, explanation };
+  function createData(date, sourceWarehouse, targetWarehouse, number, explanation) {
+	return { date, sourceWarehouse, targetWarehouse, number, explanation };
   }
   
   const rows = [
-	createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-	createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-  createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-	createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-  createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-	createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-  createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-	createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-  createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-	createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-  createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-	createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-  createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-	createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
-  createData('21/12/2023', 'Depo 1', 'Depo 2', 'Ürünlerin Aktarımı'),
+	createData('21/12/2023', 'Depo 1', 'Depo 2','2','Ürünlerin Aktarımı'),
+	createData('21/12/2023', 'Depo 1', 'Depo 2','2', 'Ürünlerin Aktarımı'),
+  createData('21/12/2023', 'Depo 1', 'Depo 2','2','Ürünlerin Aktarımı'),
+	createData('21/12/2023', 'Depo 1', 'Depo 2','2', 'Ürünlerin Aktarımı'),
+  createData('21/12/2023', 'Depo 1', 'Depo 2','2','Ürünlerin Aktarımı'),
+	createData('21/12/2023', 'Depo 1', 'Depo 2','2', 'Ürünlerin Aktarımı'),
+  createData('21/12/2023', 'Depo 1', 'Depo 2','2','Ürünlerin Aktarımı'),
+	createData('21/12/2023', 'Depo 1', 'Depo 2','2', 'Ürünlerin Aktarımı'),
+  createData('21/12/2023', 'Depo 1', 'Depo 2','2','Ürünlerin Aktarımı'),
+	createData('21/12/2023', 'Depo 1', 'Depo 2','2', 'Ürünlerin Aktarımı'),
   ];
 const WarehouseMoves = () => {
     const [open, setOpen] = React.useState(false);
@@ -132,6 +128,7 @@ const WarehouseMoves = () => {
         fullWidth
         variant="outlined"
       />
+
       <TextField
         autoFocus
         margin="dense"
@@ -170,13 +167,7 @@ const WarehouseMoves = () => {
         />
         
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <TextField
-          margin="dense"
-          id="ilce"
-          label="Ürün"
-          type="text"
-          variant="outlined"
-        />
+  
         <TextField
           margin="dense"
           id="il"

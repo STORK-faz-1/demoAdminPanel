@@ -1,7 +1,7 @@
 import React from "react";
 import { Tabs, TabList, TabPanel, Tab } from "react-tabs";
-import { User, Settings } from "react-feather";
-import { Button, Col, Input, Label, Row, Table } from "reactstrap";
+import { User, Settings, UserPlus } from "react-feather";
+import { Button, Col, Input, Label, Row, Table, Form, FormGroup } from "reactstrap";
 
 const TabsetProfile = () => {
 	return (
@@ -12,6 +12,10 @@ const TabsetProfile = () => {
 						<User className="me-2" />
 						Profil
 					</Tab>
+					<Tab className="nav-link"> {/* Yeni sekme eklendi */}
+                        <UserPlus className="me-2" />
+                        Kullanıcı Oluştur
+                    </Tab>
 					<Tab className="nav-link">
 						<Settings className="me-2" />
 						Ayarlar
@@ -57,6 +61,43 @@ const TabsetProfile = () => {
 						</div>
 					</div>
 				</TabPanel>
+				<TabPanel> {/* Yeni sekme içeriği */}
+                    <div className="user-create-form">
+                 
+					<Form>
+    <Row form>
+        <Col md={6}>
+            <FormGroup>
+                <Label for="userName">Kullanıcı Adı:</Label>
+                <Input type="text" id="userName" placeholder="Kullanıcı Adı Giriniz" />
+            </FormGroup>
+        </Col>
+        <Col md={6}>
+            <FormGroup>
+                <Label for="userEmail">Email:</Label>
+                <Input type="email" id="userEmail" placeholder="Email Giriniz" />
+            </FormGroup>
+        </Col>
+    </Row>
+    <Row form>
+        <Col md={6}>
+            <FormGroup>
+                <Label for="userPassword">Şifre:</Label>
+                <Input type="password" id="userPassword" placeholder="Şifre Giriniz" />
+            </FormGroup>
+        </Col>
+        <Col md={6}>
+            <FormGroup>
+                <Label for="confirmPassword">Şifreyi Onayla:</Label>
+                <Input type="password" id="confirmPassword" placeholder="Şifreyi Tekrar Giriniz" />
+            </FormGroup>
+        </Col>
+    </Row>
+    <Button type="submit" color="primary">Kullanıcı Oluştur</Button>
+</Form>
+
+                    </div>
+                </TabPanel>
 				<TabPanel>
 					{/* <div className="tab-pane fade"> */}
 					<div className="account-setting">

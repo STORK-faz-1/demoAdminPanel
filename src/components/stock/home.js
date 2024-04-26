@@ -354,7 +354,7 @@ Göster
         backgroundColor: '#5baad9', 
       },
     }}>
-    Stok Listesi
+    Stok Çıkış Listesi
   </Button>
   <Button variant="contained" endIcon={<ReceiptLongIcon />} size="small"  sx={{ 
       fontSize: '0.60rem', 

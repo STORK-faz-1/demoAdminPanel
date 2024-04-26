@@ -1,0 +1,12 @@
+POST http://77.83.200.112:8080/api/users/register HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhcnUxMWtAZ21haWwuY29tIiwiZXhwIjoxNzEwNjc1OTk2LCJpZCI6IjdjZWIyMTEyLTY0OTktNGQ1MC05N2NjLTkzN2I4YTk5YjdlZSIsInJvbGUiOiJhZG1pbiJ9.hwMyWzlxKQxDdayjc6cFZZcewFlAbUw663dP92aMK3M
+
+{
+    "name": "faruk",
+    "password": "12345678",
+    "email": "farukonder@gmail.com",
+    "role": "warehouseman",
+    "plate": "09 abc 3557",
+    "phone": "04546578523"
+}

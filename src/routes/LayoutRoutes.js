@@ -8,10 +8,12 @@ import Dashboard from '../components/dashboard'
 import Invoice from '../components/invoice'
 import Rates from '../components/localization/rates'
 import StockList from '../components/stock/stock-list'
+import StockDetailList from '../components/stock/stock-detail-list'
 import StockHome from '../components/stock/home'
 import NewStock from '../components/stock/new-stock'
 import WarehouseMoves from '../components/stock/warehouse-moves'
 import Warehouses from '../components/stock/warehouses'
+import WarehousesTwo from '../components/stock/warehousesTwo'
 import Taxes from '../components/localization/taxes'
 import Translations from '../components/localization/translations'
 import Media from '../components/media/media'
@@ -204,6 +206,10 @@ const LayoutRoutes = () => {
 							element={<StockList />}
 						/>
 						<Route
+							path={`${process.env.PUBLIC_URL}/stock/stock-detail-list`}
+							element={<StockDetailList />}
+						/>
+						<Route
 							path={`${process.env.PUBLIC_URL}/stock/home`}
 							element={<StockHome />}
 						/>
@@ -218,6 +224,10 @@ const LayoutRoutes = () => {
 						<Route
 							path={`${process.env.PUBLIC_URL}/stock/warehouses`}
 							element={<Warehouses />}
+						/>
+						<Route
+							path={`${process.env.PUBLIC_URL}/stock/warehousesTwo`}
+							element={<WarehousesTwo />}
 						/>
 						<Route
 							path={`${process.env.PUBLIC_URL}/localization/taxes`}

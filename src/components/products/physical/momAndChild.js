@@ -42,7 +42,7 @@ const Category = () => {
 		</label>
 	  );
 
-	  const URL = "http://185.165.76.194:9069/api/v1";
+	  const URL = "http://194.116.236.60:9069/api/v1";
 
 	  const [products, setProducts] = useState([]);
 	  const [page, setPage] = useState(1);

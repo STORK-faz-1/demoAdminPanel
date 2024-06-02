@@ -1,9 +1,0 @@
-@base_url= http://shopayza.xyz
-POST {{base_url}}/api/users/login HTTP/1.1
-content-type: application/json
-
-{
-    "email":"faru11k@gmail.com",
-    "password":"12345678"
-}
-    

@@ -28,7 +28,7 @@ const List_user = () => {
             size={"sm"}
               >
             <option>
-                İngiltere
+                England
                 </option>
                 <option>
                   Kanada
@@ -110,7 +110,7 @@ const List_user = () => {
 							<FormGroup>
     <Input
       type="search"
-      placeholder="🔎 Ara.."
+      placeholder="🔎 Search.."
       style={{ border: '1px solid #48b6ff', paddingLeft: '5px' }}
 	  className="search-input"
     />

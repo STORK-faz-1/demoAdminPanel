@@ -296,7 +296,7 @@ const Add_product = () => {
         type="select"
       >
         <option>
-         Tüm Zamanlar
+        All Times
         </option>
         <option>
           2
@@ -323,7 +323,7 @@ const Add_product = () => {
     </Label>
     <Input
       type="search"
-      placeholder="🔎 Ara.."
+      placeholder="🔎 Search.."
 	 
     />
   </FormGroup>

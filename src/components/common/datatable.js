@@ -139,7 +139,7 @@ if (multiSelectOption === true) {
 	});
 } else {
 	columns.push({
-		name: <b>Detay</b>,
+		name: <b>Detail</b>,
 		id: "action",
 		accessor: (str) => "action",
 		cell: (row) => (

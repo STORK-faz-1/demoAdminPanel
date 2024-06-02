@@ -33,7 +33,7 @@ const Reports = () => {
             size={"sm"}
               >
             <option>
-                İngiltere
+			England
                 </option>
                 <option>
                   Kanada
@@ -51,7 +51,7 @@ const Reports = () => {
 					<Col xl="12" md="6">
 						<Card>
 							<CardHeader>
-								<h5>Satış Özeti</h5>
+								<h5>Sales Summary</h5>
 							</CardHeader>
 							<CardBody className="sell-graph">
 								<Line

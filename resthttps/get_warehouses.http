@@ -1,4 +1,0 @@
-@base_url= http://shopayza.xyz
-
-GET  {{base_url}}/api/warehouses/getAll
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhcnUxMWtAZ21haWwuY29tIiwiZXhwIjoxNzExMjEzMDc5LCJpZCI6IjdjZWIyMTEyLTY0OTktNGQ1MC05N2NjLTkzN2I4YTk5YjdlZSIsInJvbGUiOiJhZG1pbiJ9.IPyUut8rGE_NjdvGrjcgEPPrJZ6hXBTkGludYQwPscA

@@ -22,7 +22,7 @@ import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap";
 const Campaigns = () => {
 	return (
 		<div>
-			<Breadcrumb title="Kampanya Oluştur" parent="Kampanyalar" />
+			<Breadcrumb title="Create Campaign" parent="Campaigns" />
 			{/* <Container fluid={true}>
 				<Row>
 					<Col xl="8" md="6">
@@ -100,12 +100,12 @@ const Campaigns = () => {
     <Col md={6}>
       <FormGroup>
         <Label >
-          Kampanya İsmi
+          Campaign Name
         </Label>
         <Input
           id="exampleEmail"
           name="email"
-          placeholder="İsim"
+          placeholder="Name"
           type="email"
         />
       </FormGroup>
@@ -113,12 +113,12 @@ const Campaigns = () => {
     <Col md={6}>
       <FormGroup>
         <Label >
-          Kampanya Kodu
+		Campaign Code
         </Label>
         <Input
           id="examplePassword"
           name="password"
-          placeholder="Kod"
+          placeholder="Code"
           type="password"
         />
       </FormGroup>
@@ -126,7 +126,8 @@ const Campaigns = () => {
   </Row>
 
   <Button>
-    Kampanyayı Ekle
+  Create
+  
   </Button>
 </Form>
 							</CardBody>

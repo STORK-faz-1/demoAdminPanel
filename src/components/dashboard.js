@@ -95,19 +95,19 @@ ChartJS.register(
  
 const Dashboard = () => {
 	const timeOptions = [
-		{ value: 'allTimes', label: 'Tüm Zamanlar' },
-		{ value: 'today', label: 'Bugün' },
-		{ value: 'yesterday', label: 'Dün' },
-		{ value: 'three', label: 'Son 3 Gün' },
-		{ value: 'seven', label: 'Son 7 Gün' },
-		{ value: 'fourteen', label: 'Son 14 Gün' },
-		{ value: 'thirty', label: 'Son 30 Gün' },
-		{ value: 'ninety', label: 'Son 90 Gün' },
-		{ value: 'oneHundredEighty', label: 'Son 180 Gün' },
-		{ value: 'threeHundredSixtyFive', label: 'Son 365 Gün' }
+		{ value: 'allTimes', label: 'All Times' },
+		{ value: 'today', label: 'Today' },
+		{ value: 'yesterday', label: 'Yesterday' },
+		{ value: 'three', label: 'The last 3 days' },
+		{ value: 'seven', label: 'The last 7 days' },
+		{ value: 'fourteen', label: 'The last 14 days' },
+		{ value: 'thirty', label: 'The last 1 month' },
+		{ value: 'ninety', label: 'The last 3 months' },
+		{ value: 'oneHundredEighty', label: 'The last 6 months' },
+		{ value: 'threeHundredSixtyFive', label: 'The last 1 year' }
 	  ];
 	  const storeOptions = [
-		{ value: 'England', label: 'İngiltere' },
+		{ value: 'England', label: 'England' },
 		{ value: 'Canada', label: 'Kanada' },
 		{ value: 'Mexican', label: 'Meksika' },
 		
@@ -313,7 +313,7 @@ const Dashboard = () => {
 		
 		<Fragment>
 			
-			<Breadcrumb title="Kontrol Paneli" parent="Ana Sayfa"  />
+			<Breadcrumb title="Dashboard" parent="Home"  />
 			
 			<Container fluid={true}>
 			<Col lg="6">
@@ -325,8 +325,8 @@ const Dashboard = () => {
         className="basic-single"
         classNamePrefix="select"
         defaultValue={timeOptions[0]}
-		isClearable={true} // Her zaman clearable
-        isSearchable={true} // Her zaman searchable
+		isClearable={true} 
+        isSearchable={true} 
         name="time"
         options={timeOptions}
       />
@@ -362,12 +362,12 @@ const Dashboard = () => {
 										</div>
 									</div>
 									<Media body className="col-8">
-										<span className="m-0">Ürün Satışları</span>
+										<span className="m-0">Product Sales</span>
 										<h3 className="mb-0">
 											$ <CountUp className="counter" end={6659} />
 											
 											<br></br>
-											<small> Bu Ay</small>
+											<small> This Month</small>
 										</h3>
 									</Media>
 								</Media>
@@ -384,12 +384,12 @@ const Dashboard = () => {
 										</div>
 									</div>
 									<Media body className="col-8">
-										<span className="m-0">Tahmini Kâr</span>
+										<span className="m-0">Estimated Profit</span>
 										<h3 className="mb-0">
 											$ <CountUp className="counter" end={9856} />
 											
 											<br></br>
-											<small> Bu Ay</small>
+											<small> This Month</small>
 										</h3>
 									</Media>
 								</Media>
@@ -406,13 +406,13 @@ const Dashboard = () => {
 										</div>
 									</div>
 									<Media body className="col-8">
-										<span className="m-0">Siparişler</span>
+										<span className="m-0">Orders</span>
 										
 										<h3 className="mb-0">
 											 <CountUp className="counter" end={8933} />
 											
 											<br></br>
-											<small> Bu Ay</small>
+											<small> This Month</small>
 										</h3>
 									</Media>
 								</Media>
@@ -429,11 +429,11 @@ const Dashboard = () => {
 										</div>
 									</div>
 									<Media body className="col-8">
-										<span className="m-0">Sipariş Tamamlandı</span>
+										<span className="m-0">Completed Orders</span>
 										<h3 className="mb-0">
 											 <CountUp className="counter" end={4631} />
 											<br></br>
-											<small> Bu Ay</small>
+											<small> This Month</small>
 										</h3>
 									</Media>
 								</Media>
@@ -444,7 +444,7 @@ const Dashboard = () => {
       <Card className={isKargoCikmamis ? "kargo-cikmamis-card" : ""}>
         <CardHeader>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h5>{isKargoCikmamis ? 'Kargoya Çıkmamış Siparişler' : 'Siparişler'}</h5>
+            <h5>{isKargoCikmamis ? 'Orders That Have Not Been Shipped' : 'Orders'}</h5>
             <button
               onClick={toggleKargoCikmamis}
               style={{ border: 'none', background: 'transparent' }}
@@ -459,7 +459,7 @@ const Dashboard = () => {
             <FormGroup>
               <Input
                 type="search"
-                placeholder="🔎 Ara.."
+                placeholder="🔎 Search.."
                 style={{ border: '1px solid #48b6ff', paddingLeft: '5px' }}
                 className="search-input"
               />
@@ -497,7 +497,7 @@ const Dashboard = () => {
 					<Col sm="12">
 						<Card>
 							<CardHeader>
-								<h5>Satış Özeti</h5>
+								<h5>Sales Summary</h5>
 							</CardHeader>
 							<CardBody className="expense-chart">
 							<Col lg="2">
@@ -683,14 +683,14 @@ const Dashboard = () => {
 					<Col xl="6 xl-100">
 						<Card className="height-equal">
 							<CardHeader>
-								<h5>Çok Satan Ürünler</h5>
+								<h5>Best Selling Products</h5>
 							</CardHeader>
 							<CardBody>
 							<Form >
 							<FormGroup>
     <Input
       type="search"
-      placeholder="🔎 Ara.."
+      placeholder="🔎 Search.."
       style={{ border: '1px solid #48b6ff', paddingLeft: '5px' }}
 	  className="search-input"
     />
@@ -759,14 +759,14 @@ const Dashboard = () => {
 					<Col xl="6 xl-100">
 						<Card className="height-equal">
 							<CardHeader>
-								<h5>Kategoriler</h5>
+								<h5>Categories</h5>
 							</CardHeader>
 							<CardBody>
 							<Form >
 							<FormGroup>
     <Input
       type="search"
-      placeholder="🔎 Ara.."
+      placeholder="🔎 Search.."
       style={{ border: '1px solid #48b6ff', paddingLeft: '5px' }}
 	  className="search-input"
     />
@@ -778,7 +778,7 @@ const Dashboard = () => {
 										<thead>
 											<tr>
 												<th scope="col">Kategori Adı</th>
-												<th scope="col">Tahmini Kâr</th>
+												<th scope="col">Estimated Profit</th>
 												<th scope="col">Toplam Ürün</th>
 												<th scope="col">Toplam Sipariş</th>
 											</tr>

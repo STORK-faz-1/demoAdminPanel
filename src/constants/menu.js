@@ -20,10 +20,10 @@ import {
 
 export const MENUITEMS = [
     {
-        path: '/dashboard', title: 'Ana Sayfa', icon: Home, type: 'link', badgeType: 'primary', active: false
+        path: '/dashboard', title: 'Home', icon: Home, type: 'link', badgeType: 'primary', active: false
     },
     {
-        title: 'Ürünler', icon: Box, type: 'sub', active: false, children: [
+        title: 'Products', icon: Box, type: 'sub', active: false, children: [
             // {
             //     title: 'Kadın', type: 'sub', active: false, children: [
             //         { path: '/products/physical/category', title: 'Tüm Ürünler', type: 'link' },
@@ -34,9 +34,9 @@ export const MENUITEMS = [
                 
             //     ]
             // },
-            { path: '/products/physical/woman', title: 'Kadın', type: 'link' },
-            { path: '/products/physical/man', title: 'Erkek', type: 'link' },
-            { path: '/products/physical/momAndChild', title: 'Anne & Çocuk', type: 'link' },
+            { path: '/products/physical/woman', title: 'Woman', type: 'link' },
+            { path: '/products/physical/man', title: 'Man', type: 'link' },
+            { path: '/products/physical/momAndChild', title: 'Mom & Kids', type: 'link' },
             // { path: '/products/physical/home', title: 'Ev & Yaşam', type: 'link' },
             // { path: '/products/physical/shoeAndBag', title: 'Ayakkabı & Çanta', type: 'link' },
             // { path: '/products/physical/electronic', title: 'Elektronik', type: 'link' },
@@ -104,25 +104,25 @@ export const MENUITEMS = [
         ]
     },
     {
-        title: 'Amazon Ürün Ekle', path: '/products/physical/add-product-amazon', icon: PlusCircle, type: 'link', active: false
+        title: 'Add Product to Amazon', path: '/products/physical/add-product-amazon', icon: PlusCircle, type: 'link', active: false
     },
     {
-        title: 'Toplu Ürün Ekle', path: '/products/physical/add-product', icon: FilePlus, type: 'link', active: false
+        title: 'Add Products in Bulk', path: '/products/physical/add-product', icon: FilePlus, type: 'link', active: false
     },
  
     {
-        title: 'Ürünleri Yükle', path: '/products/physical/add-more-products', icon: UploadCloud, type: 'link', active: false
+        title: 'Add Products', path: '/products/physical/add-more-products', icon: UploadCloud, type: 'link', active: false
     },
     {
-        title: 'Satışlar', icon: DollarSign, type: 'sub', active: false, children: [
-            { path: '/sales/orders', title: 'Siparişler', type: 'link' },
-            { path: '/sales/transactions', title: 'Sipariş Yönetimi', type: 'link' },
+        title: 'Sales', icon: DollarSign, type: 'sub', active: false, children: [
+            { path: '/sales/orders', title: 'Orders', type: 'link' },
+            { path: '/sales/transactions', title: 'Order Management', type: 'link' },
         ]
     },
     {
-        title: 'Kuponlar', icon: Tag, type: 'sub', active: false, children: [
-            { path: '/coupons/list-coupons', title: 'Kupon Listesi', type: 'link' },
-            { path: '/coupons/create-coupons', title: 'Kupon Oluştur', type: 'link' },
+        title: 'Coupons', icon: Tag, type: 'sub', active: false, children: [
+            { path: '/coupons/list-coupons', title: 'Coupon List', type: 'link' },
+            { path: '/coupons/create-coupons', title: 'Create Coupon', type: 'link' },
         ]
     },
     // {
@@ -132,7 +132,7 @@ export const MENUITEMS = [
     //     ]
     // },
     {
-        title: 'Medya', path: '/media', icon: Camera, type: 'link', active: false
+        title: 'Media', path: '/media', icon: Camera, type: 'link', active: false
     },
     // {
     //     title: 'Menüler', icon: AlignLeft, type: 'sub', active: false, children: [
@@ -141,8 +141,8 @@ export const MENUITEMS = [
     //     ]
     // },
     {
-        title: 'Kullanıcılar', icon: UserPlus, type: 'sub', active: false, children: [
-            { path: '/users/list-user', title: 'Kullanıcı Listesi', type: 'link' },
+        title: 'Users', icon: UserPlus, type: 'sub', active: false, children: [
+            { path: '/users/list-user', title: 'User List', type: 'link' },
             // { path: '/users/comments-user', title: 'Kullanıcı Soruları', type: 'link' },
             // { path: '/users/create-user', title: 'Kullanıcı Oluştur', type: 'link' },
         ]
@@ -164,22 +164,22 @@ export const MENUITEMS = [
     //     ]
     // },
     {
-        title: 'Döviz', path: '/localization/currency-rates', icon: Activity, type: 'link', active: false
+        title: 'Foreign Currency', path: '/localization/currency-rates', icon: Activity, type: 'link', active: false
     },
    
     {
-        title: 'Maliyet', path: '/localization/taxes', icon: Book, type: 'link', active: false
+        title: 'Cost', path: '/localization/taxes', icon: Book, type: 'link', active: false
     },
 
     {
-        title: 'Stok', icon: Package, type: 'sub', active: false, children: [
-            { path: '/stock/home', title: 'Stok Yönetim', type: 'link' },
-            { path: '/stock/new-stock', title: 'Yeni Stok', type: 'link' },
-            { path: '/stock/stock-list', title: 'Stok Listesi', type: 'link' },
-            { path: '/stock/stock-detail-list', title: 'Stok Detay Listesi', type: 'link' },
-            { path: '/stock/warehouses', title: 'Depolar', type: 'link' },
-            { path: '/stock/warehousesTwo', title: 'Depo', type: 'link' },
-            { path: '/stock/warehouse-moves', title: 'Depo Hareketi', type: 'link' },
+        title: 'Stock', icon: Package, type: 'sub', active: false, children: [
+            { path: '/stock/home', title: 'Stock Management', type: 'link' },
+            { path: '/stock/new-stock', title: 'New Stock', type: 'link' },
+            { path: '/stock/stock-list', title: 'Stock List', type: 'link' },
+            { path: '/stock/stock-detail-list', title: 'Stock Detail List', type: 'link' },
+            { path: '/stock/warehouses', title: 'Warehouses', type: 'link' },
+            { path: '/stock/warehousesTwo', title: 'Warehouses 2', type: 'link' },
+            { path: '/stock/warehouse-moves', title: 'Warehouse Movement', type: 'link' },
         ]
     },
    
@@ -195,16 +195,16 @@ export const MENUITEMS = [
     //     title: 'Entegrasyon',path:'/dashboard', icon: Layers, type: 'link', active: false
     // },
     {
-        title: 'İstatistikler',path:'/statistics/statistic', icon: PieChart, type: 'link', active: false
+        title: 'Statistics',path:'/statistics/statistic', icon: PieChart, type: 'link', active: false
     },
     {
-        title: 'Raporlar',path:'/reports/report', icon: BarChart, type: 'link', active: false
+        title: 'Reports',path:'/reports/report', icon: BarChart, type: 'link', active: false
     },
 
     {
-        title: 'Kampanyalar', icon: Gift, type: 'sub', children: [
-            { path: '/campaigns/campaign', title: 'Kampanyalar', type: 'link' },
-            { path: '/campaigns/addCampaign', title: 'Kampanya Oluştur', type: 'link' },
+        title: 'Campaigns', icon: Gift, type: 'sub', children: [
+            { path: '/campaigns/campaign', title: 'Campaigns', type: 'link' },
+            { path: '/campaigns/addCampaign', title: 'Create Campaign', type: 'link' },
         ]
     },
    
@@ -213,13 +213,13 @@ export const MENUITEMS = [
     // },
     
     {
-        title: 'Faturalar',path:'/invoice', icon: FileText, type: 'link', active: false
+        title: 'Bills',path:'/invoice', icon: FileText, type: 'link', active: false
     },
     
     {
-        title: 'Ayarlar',path:'/settings/profile', icon: Settings, type: 'link', active: false
+        title: 'Settings',path:'/settings/profile', icon: Settings, type: 'link', active: false
     },
     {
-        title: 'Çıkış',path:'/auth/login', icon: LogIn, type: 'link', active: false
+        title: 'Log out',path:'/auth/login', icon: LogIn, type: 'link', active: false
     }
 ]

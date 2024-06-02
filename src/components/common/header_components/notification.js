@@ -7,7 +7,7 @@ const Notification = () => {
 		<Fragment>
 			<ul className="notification-dropdown onhover-show-div p-0">
 				<li>
-					Bildirimler{" "}
+					Notifications{" "}
 					<span className="badge rounded-pill badge-primary pull-right">3</span>
 				</li>
 				<li>
@@ -17,7 +17,7 @@ const Notification = () => {
 								<span>
 									<ShoppingBag />
 								</span>
-								Yeni siparişler oluşturuldu..!
+								New orders have arrived..!
 							</h6>
 							{/* <p className="mb-0">Lorem ipsum dolor sit amet, consectetuer.</p> */}
 						</Media>
@@ -30,13 +30,13 @@ const Notification = () => {
 								<span>
 									<Download />
 								</span>
-								Bildirimleri İndir
+								Download Notifications
 							</h6>
 							{/* <p className="mb-0">Lorem ipsum dolor sit amet, consectetuer.</p> */}
 						</Media>
 					</Media>
 				</li>
-				<li>
+				{/* <li>
 					<Media>
 						<Media body>
 							<h6 className="mt-0 txt-danger">
@@ -45,12 +45,12 @@ const Notification = () => {
 								</span>							
                               250 MB çöp dosyaları
 							</h6>
-							{/* <p className="mb-0">Lorem ipsum dolor sit amet, consectetuer.</p> */}
+							<p className="mb-0">Lorem ipsum dolor sit amet, consectetuer.</p> 
 						</Media>
 					</Media>
-				</li>
+				</li> */}
 				<li className="txt-dark">
-					<a href="#javaScript">Tüm</a> Bildirimler
+					<a href="#javaScript">All Notifications</a>
 				</li>
 			</ul>
 		</Fragment>

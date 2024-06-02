@@ -147,7 +147,7 @@ const Add_product = () => {
         type="select"
       >
         <option>
-          İngiltere
+        England
         </option>
         <option>
           Kanada

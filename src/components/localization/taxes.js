@@ -21,7 +21,7 @@ const Taxes = () => {
             size={"sm"}
               >
             <option>
-                İngiltere
+			England
                 </option>
                 <option>
                   Kanada
@@ -46,7 +46,7 @@ const Taxes = () => {
 							<FormGroup>
     <Input
       type="search"
-      placeholder="🔎 Ara.."
+      placeholder="🔎 Search.."
       style={{ border: '1px solid #48b6ff', paddingLeft: '5px' }}
 	  className="search-input"
     />

@@ -46,7 +46,7 @@ const Digital_add_pro = () => {
 									</FormGroup>
 									<FormGroup>
 										<Label className="col-form-label">
-											<span>*</span> Kategoriler
+											<span>*</span> Categories
 										</Label>
 										<select className="form-select" required="">
 											<option value="">--Select--</option>

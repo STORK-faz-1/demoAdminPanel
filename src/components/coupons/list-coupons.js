@@ -21,7 +21,7 @@ const ListCoupons = () => {
             size={"sm"}
               >
             <option>
-                İngiltere
+			England
                 </option>
                 <option>
                   Kanada

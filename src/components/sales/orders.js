@@ -22,7 +22,7 @@ const Orders = () => {
             size={"sm"}
               >
             <option>
-                İngiltere
+            England
                 </option>
                 <option>
                   Kanada

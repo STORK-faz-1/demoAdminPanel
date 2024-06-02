@@ -22,7 +22,7 @@ const Transactions_sales = () => {
             size={"sm"}
               >
             <option>
-                İngiltere
+			England
                 </option>
                 <option>
                   Kanada

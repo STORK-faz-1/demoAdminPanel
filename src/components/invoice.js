@@ -21,7 +21,7 @@ const Invoice = () => {
             size={"sm"}
               >
             <option>
-                İngiltere
+			England
                 </option>
                 <option>
                   Kanada

@@ -145,7 +145,7 @@ const Campaigns = () => {
             size={"sm"}
               >
             <option>
-                İngiltere
+			England
                 </option>
                 <option>
                   Kanada

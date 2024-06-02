@@ -16,7 +16,7 @@ const SearchHeader = () => {
 					<Input
 						className={"form-control-plaintext " + (searchbar ? "open" : "")}
 						type="search"
-						placeholder="Ara.."
+						placeholder="Search.."
 					/>
 					<span
 						className="d-sm-none mobile-search"

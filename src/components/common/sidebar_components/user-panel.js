@@ -13,7 +13,7 @@ const UserPanel = () => {
 					/>
 				</div>
 				<h6 className="mt-3 f-14">Admin</h6>
-				<p>Panel Yöneticisi</p>
+				<p>Panel Manager</p>
 			</div>
 		</div>
 	);

@@ -44,6 +44,7 @@
     "react-select": "^5.8.0",
     "react-simple-star-rating": "^4.0.5",
     "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.8",
     "react-tabs": "^5.1.0",
     "react-toastify": "^9.0.4",
     "react-virtuoso": "^4.6.1",

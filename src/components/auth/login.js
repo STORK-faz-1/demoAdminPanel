@@ -16,7 +16,7 @@ const Login = () => {
     };
     return (
         <Fragment>
-            <div className="page-wrapper">
+            <div className="login-background">
                 <div className="authentication-box">
                     <Container>
                         <Row className="justify-content-center">
@@ -32,7 +32,7 @@ const Login = () => {
                                    className="btn btn-primary back-btn mt-3"
                                 >
                                     <ArrowLeft />
-                                    Geri
+                                    Back
                                 </a>
                             </Col>
                         </Row>

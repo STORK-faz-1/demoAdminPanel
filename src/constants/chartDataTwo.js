@@ -41,7 +41,7 @@ export const areaChart = {
     labels: ["2019", "2020", "2021", "2022"],
         datasets : [
             {
-                label:'Satış',
+                label:'Sales',
                 data: [400,550,1120,540],
                 borderColor: '#9bc735',
                 backgroundColor:'rgba(211,216,219,0.5)',
@@ -49,7 +49,7 @@ export const areaChart = {
                 lineTension: 0,
             },
             {
-                label:'Maliyet',
+                label:'Cost',
                 data: [1000, 1170, 660, 1030],
                 borderColor: '#13c9ca',
                 backgroundColor:'rgba(211,216,219,0.5)',
@@ -57,7 +57,7 @@ export const areaChart = {
                 lineTension: 0,
             },
             {
-                label:'Kâr',
+                label:'Profit',
                 data: [100, 170, 60, 30],
                 borderColor: '#ffa200',
                 backgroundColor:'rgba(211,216,219,0.5)',

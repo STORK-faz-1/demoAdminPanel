@@ -22,12 +22,12 @@ const Category = () => {
   const [hasMore, setHasMore] = useState(true);
   const [token, setToken] = useState('');
   const storeOptions = [
-		{ value: 'England', label: 'İngiltere' },
+		{ value: 'England', label: 'England' },
 		{ value: 'Canada', label: 'Kanada' },
 		{ value: 'Mexican', label: 'Meksika' },
 		
 	  ];
-  const URL = "http://194.116.236.60:9069/api/v1";
+  const URL = "https://sellerwox.xyz/api/v1";
 
   const generateToken = async () => {
     const url = `${URL}/generate-token`;
@@ -172,7 +172,7 @@ const Category = () => {
 
   return (
     <Fragment>
-    <Breadcrumb title="Kadın Ürünleri" parent="Ürünler" />
+    <Breadcrumb title="Kadın Ürünleri" parent="Products" />
     <Container fluid={true}>
 			<Col lg="4">
 			<Row>

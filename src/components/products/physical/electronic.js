@@ -31,7 +31,7 @@ import {
 
 const Category = () => {
 	const storeOptions = [
-		{ value: 'England', label: 'İngiltere' },
+		{ value: 'England', label: 'England' },
 		{ value: 'Canada', label: 'Kanada' },
 		{ value: 'Mexican', label: 'Meksika' },
 		
@@ -324,7 +324,7 @@ const Category = () => {
 							<CardBody>
 							<div>
       <Button color="secondary" onClick={toggle} >
-        Kategoriler
+	  Categories
       </Button>
       <Modal isOpen={modal} toggle={toggle} size="xl" centered>
         <ModalHeader toggle={toggle}></ModalHeader>
@@ -357,7 +357,7 @@ const Category = () => {
 							<FormGroup>
     <Input
       type="search"
-      placeholder="🔎 Ara.."
+      placeholder="🔎 Search.."
       style={{ border: '1px solid #48b6ff', paddingLeft: '5px' }}
 	  className="search-input"
     />

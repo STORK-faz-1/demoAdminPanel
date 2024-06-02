@@ -30,7 +30,7 @@ import {
 
 const Category = () => {
 	const storeOptions = [
-		{ value: 'England', label: 'İngiltere' },
+		{ value: 'England', label: 'England' },
 		{ value: 'Canada', label: 'Kanada' },
 		{ value: 'Mexican', label: 'Meksika' },
 		
@@ -42,7 +42,7 @@ const Category = () => {
 		</label>
 	  );
 
-	  const URL = "http://194.116.236.60:9069/api/v1";
+	  const URL = "https://sellerwox.xyz/api/v1";
 
 	  const [products, setProducts] = useState([]);
 	  const [page, setPage] = useState(1);
@@ -234,7 +234,7 @@ const Category = () => {
 							<CardBody>
 							<div>
       <Button variant="outlined"  onClick={toggle} >
-        Kategoriler
+      Categories
       </Button>
       <Modal isOpen={modal} toggle={toggle} size="m" centered>
                                         <ModalHeader toggle={toggle}></ModalHeader>
@@ -273,7 +273,7 @@ const Category = () => {
 							<FormGroup>
     <Input
       type="search"
-      placeholder="🔎 Ara.."
+      placeholder="🔎 Search.."
       style={{ border: '1px solid #48b6ff', paddingLeft: '5px' }}
 	  className="search-input"
     />

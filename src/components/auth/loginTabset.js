@@ -22,7 +22,7 @@ const LoginTabset = () => {
 					<TabList className="nav nav-tabs tab-coupon">
 						<Tab className="nav-link" onClick={(e) => clickActive(e)}>
 							<User />
-							Giriş
+							Login
 						</Tab>
 			
 					</TabList>
@@ -35,7 +35,7 @@ const LoginTabset = () => {
 									name="login[username]"
 									type="email"
 									className="form-control"
-									placeholder="Kullanıcı Adı"
+									placeholder="Username"
 									id="exampleInputEmail1"
 								/>
 							</FormGroup>
@@ -45,7 +45,7 @@ const LoginTabset = () => {
 									name="login[password]"
 									type="password"
 									className="form-control"
-									placeholder="Şifre"
+									placeholder="Password"
 								/>
 							</FormGroup>
 							<div className="form-terms">
@@ -72,7 +72,7 @@ const LoginTabset = () => {
 									type="submit"
 									onClick={() => routeChange()}
 								>
-									Giriş Yap
+									Login
 								</Button>
 							</div>
 							{/* <div className="form-footer">

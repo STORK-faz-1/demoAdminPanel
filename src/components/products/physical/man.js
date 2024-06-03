@@ -24,7 +24,7 @@ const Category = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [selectedBrand, setSelectedBrand] = useState([]);
-  const [selectedColor, setSelectedColor] = useState([]);
+  const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedPriceRange, setSelectedPriceRange] = useState('');
   const [brandOptions, setBrandOptions] = useState([]);
@@ -32,8 +32,27 @@ const Category = () => {
   const [subCategoryOptions, setSubCategoryOptions] = useState([]); 
 
   const colorOptions = [
-    { value: 'red', label: 'Red' },
-    { value: 'blue', label: 'Blue' },
+    { value: 'Altın', label: 'Altın' },
+    { value: 'Bej', label: 'Bej' },
+    { value: 'Beyaz', label: 'Beyaz' },
+    { value: 'Bordo', label: 'Bordo' },
+    { value: 'Ekru', label: 'Ekru' },
+    { value: 'Gri', label: 'Gri' },
+    { value: 'Gümüş', label: 'Gümüş' },
+    { value: 'Haki', label: 'Haki' },
+    { value: 'Kahverengi', label: 'Kahverengi' },
+    { value: 'Kırmızı', label: 'Kırmızı' },
+    { value: 'Lacivert', label: 'Lacivert' },
+    { value: 'Mavi', label: 'Mavi' },
+    { value: 'Metalik', label: 'Metalik' },
+    { value: 'Mor', label: 'Mor' },
+    { value: 'Pembe', label: 'Pembe' },
+    { value: 'Sarı', label: 'Sarı' },
+    { value: 'Siyah', label: 'Siyah' },
+    { value: 'Turkuaz', label: 'Turkuaz' },
+    { value: 'Turuncu', label: 'Turuncu' },
+    { value: 'Yeşil', label: 'Yeşil' },
+    { value: 'Çok Renkli', label: 'Çok Renkli' },
   ];
 
   const sizeOptions = [
@@ -66,27 +85,26 @@ const Category = () => {
     }
   };
 
-  const fetchProducts = async (token, pageNum, categoryId = 83) => {
+  const fetchProducts = async (token, pageNum, categoryId = 83, selectedColor) => {
     try {
-      const url = `${URL}/product?is_active=true&category_id=${categoryId}&page=${pageNum}`;
+      const colorFilter = selectedColor ? `&color=${selectedColor.value}` : '';
+      const url = `${URL}/product?is_active=true&category_id=${categoryId}&page=${pageNum}${colorFilter}`;
       const response = await axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
           'x-api-token': token
         },
       });
-  
+
       if (response.status === 200 && response.data.success) {
         const productsData = response.data.data.map(product => {
-          console.log('Product:', product); 
-  
           const attributes = product.attributes || [];
           const images = product.images || [];
-  
+
           const colorAttribute = attributes.find(attr => attr.key === 'Renk');
           const color = colorAttribute ? colorAttribute.value : '-';
           const firstImage = images.length > 0 ? images[0].image : '';
-  
+
           return {
             id: product.id,
             name: product.name,
@@ -99,7 +117,7 @@ const Category = () => {
             image: firstImage,
           };
         });
-  
+
         return productsData.slice(0, 15);
       } else {
         throw new Error('Products could not be fetched');
@@ -165,7 +183,7 @@ const Category = () => {
       .then(token => {
         if (!products[page]) {
           setLoading(true); 
-          fetchProducts(token, page, selectedSubCategory?.value || selectedCategory?.value || 83)
+          fetchProducts(token, page, selectedSubCategory?.value || selectedCategory?.value || 83, selectedColor)
             .then(productsData => {
               setProducts(prevProducts => ({
                 ...prevProducts,
@@ -178,7 +196,7 @@ const Category = () => {
         fetchCategories(token); 
       })
       .catch(error => console.error('Token could not be retrieved:', error));
-  }, [page, selectedCategory, selectedSubCategory]);
+  }, [page, selectedCategory, selectedSubCategory, selectedColor]);
 
   const fetchSubCategories = async (category) => {
     const token = await generateToken();
@@ -215,7 +233,7 @@ const Category = () => {
       setLoading(true); 
       generateToken()
         .then(token => {
-          fetchProducts(token, page, selectedOption.value)
+          fetchProducts(token, page, selectedOption.value, selectedColor)
             .then(productsData => {
               setProducts({ [page]: productsData }); 
               setLoading(false); 
@@ -231,7 +249,7 @@ const Category = () => {
       setLoading(true); 
       generateToken()
         .then(token => {
-          fetchProducts(token, page, selectedOption.value)
+          fetchProducts(token, page, selectedOption.value, selectedColor)
             .then(productsData => {
               setProducts({ [page]: productsData }); 
               setLoading(false); 
@@ -239,6 +257,20 @@ const Category = () => {
         })
         .catch(error => console.error('Token could not be retrieved:', error));
     }
+  };
+
+  const handleColorChange = (selectedOption) => {
+    setSelectedColor(selectedOption);
+    setLoading(true); 
+    generateToken()
+      .then(token => {
+        fetchProducts(token, page, selectedSubCategory?.value || selectedCategory?.value || 83, selectedOption)
+          .then(productsData => {
+            setProducts({ [page]: productsData }); 
+            setLoading(false); 
+          });
+      })
+      .catch(error => console.error('Token could not be retrieved:', error));
   };
 
   const columns = [
@@ -327,10 +359,9 @@ const Category = () => {
                   />
                   <Select
                     placeholder="Select Color"
-                    isMulti
                     options={colorOptions}
                     value={selectedColor}
-                    onChange={setSelectedColor}
+                    onChange={handleColorChange}
                     styles={{
                       container: (provided) => ({ ...provided, width: '15%', marginBottom: '10px' }),
                       menu: (provided) => ({ ...provided, zIndex: 9999 })
@@ -378,54 +409,59 @@ const Category = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {loading ? ( // Show react-spinner while fetching data
-                          <TableRow>
-                            <TableCell colSpan={columns.length} align="center">
-                              <ClipLoader color="#67c7ff" loading={loading} size={50} />
-                            </TableCell>
+                      {loading ? (
+                        <TableRow>
+                          <TableCell colSpan={columns.length} align="center">
+                            <ClipLoader color="#67c7ff" loading={loading} size={50} />
+                          </TableCell>
+                        </TableRow>
+                      ) : products[page]?.length > 0 ? (
+                        products[page].map((product) => (
+                          <TableRow key={product.id}>
+                            {columns.map((column) => {
+                              const value = product[column.id];
+                              if (column.id === 'image') {
+                                return (
+                                  <TableCell key={column.id}>
+                                    <img src={value} alt={product.name} style={{ width: '100px', height: 'auto' }} />
+                                  </TableCell>
+                                );
+                              } else if (column.id === 'productUrl') {
+                                return (
+                                  <TableCell key={column.id} align={column.align}>
+                                    <Link to={value} target="_blank">Go to product</Link>
+                                  </TableCell>
+                                );
+                              } else if (column.id === 'price') {
+                                return (
+                                  <TableCell key={column.id} align={column.align}>
+                                    {value + ' TL'}
+                                  </TableCell>
+                                );
+                              } else if (column.id === 'size') {
+                                return (
+                                  <TableCell key={column.id} align={column.align}>
+                                    {value ? value : '-'}
+                                  </TableCell>
+                                );
+                              }
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {value}
+                                </TableCell>
+                              );
+                            })}
                           </TableRow>
-                        ) : (
-                          products[page]?.map((product) => {
-                            return (
-                              <TableRow key={product.id}>
-                                {columns.map((column) => {
-                                  const value = product[column.id];
-                                  if (column.id === 'image') {
-                                    return (
-                                      <TableCell key={column.id}>
-                                        <img src={value} alt={product.name} style={{ width: '100px', height: 'auto' }} />
-                                      </TableCell>
-                                    );
-                                  } else if (column.id === 'productUrl') {
-                                    return (
-                                      <TableCell key={column.id} align={column.align}>
-                                        <Link to={value} target="_blank">Go to product</Link>
-                                      </TableCell>
-                                    );
-                                  } else if (column.id === 'price') {
-                                    return (
-                                      <TableCell key={column.id} align={column.align}>
-                                        {value + ' TL'}
-                                      </TableCell>
-                                    );
-                                  } else if (column.id === 'size') {
-                                    return (
-                                      <TableCell key={column.id} align={column.align}>
-                                        {value ? value : '-'}
-                                      </TableCell>
-                                    );
-                                  }
-                                  return (
-                                    <TableCell key={column.id} align={column.align}>
-                                      {value}
-                                    </TableCell>
-                                  );
-                                })}
-                              </TableRow>
-                            );
-                          })
-                        )}
-                      </TableBody>
+                        ))
+                      ) : (
+                        <TableRow>
+                          <TableCell colSpan={columns.length} align="center">
+                          There are no products in this subcategory
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+
                     </Table>
                   </TableContainer>
                 </Paper>
